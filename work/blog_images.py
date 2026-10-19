@@ -17,7 +17,7 @@ S, pad = 3, 60
 m = im.crop((24 * S, 104 * S, 656 * S, 1016 * S))          # map frame plus a small margin
 W = m.width + 2 * pad
 title, sub, small = ImageFont.truetype(G, 92), ImageFont.truetype(GI, 40), ImageFont.truetype(GI, 30)
-credit = ['Numbers give founding order; colours give the century. Real driving and walking routes from OpenStreetMap routing (FOSSGIS OSRM).',
+credit = ['Numbers follow the suggested route, starting at 0 (Rashtrapati Bhavan); colours give the century founded. Real driving and walking routes from OpenStreetMap routing (FOSSGIS OSRM).',
           'Positions: Wikipedia/OpenStreetMap coordinates. Road and river data © OpenStreetMap contributors (ODbL).']
 
 def wrap(draw, text, font, width):

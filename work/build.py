@@ -32,22 +32,23 @@ def hav(a, b):
 
 # ---------- site catalogue (fact-checked) ----------
 # n, id, name, built (label), start year for plotting, patron, century key
+# numbered along the suggested route; 0 = Rashtrapati Bhavan, the start and map datum
 SITES = [
-    (1, 'lalkot', 'Lal Kot', 'c.1060', 1060, 'Anangpal II Tomar; Qila Rai Pithora 12th c.', 11),
-    (2, 'qutb', 'Qutb Minar', 'c.1199–1220', 1199, 'Aibak, then Iltutmish; Iron Pillar c.400 CE', 12),
-    (3, 'siri', 'Siri', 'c.1303', 1303, 'Alauddin Khalji', 14),
-    (4, 'tughlaq', 'Tughlaqabad', '1321–c.1325', 1321, 'Ghiyas-ud-din Tughlaq', 14),
-    (5, 'jahan', 'Jahanpanah', 'c.1326–27', 1326, 'Muhammad bin Tughlaq (Bijay Mandal)', 14),
-    (6, 'kotla', 'Feroz Shah Kotla', '1354', 1354, 'Firuz Shah Tughlaq; Ashokan Pillar 3rd c. BCE', 14),
-    (7, 'lodi', 'Lodi Gardens', '1444–1518', 1444, 'Sayyid & Lodi sultans', 15),
-    (8, 'purana', 'Purana Qila', '1533–c.1545', 1533, 'Humayun, then Sher Shah Suri', 16),
-    (9, 'humayun', 'Humayun’s Tomb', '1565–72', 1565, 'Bega (Haji) Begum; Mirak Mirza Ghiyas', 16),
-    (10, 'redfort', 'Red Fort', '1639–48', 1639, 'Shah Jahan', 17),
-    (11, 'jama', 'Jama Masjid', '1650–56', 1650, 'Shah Jahan', 17),
-    (12, 'jantar', 'Jantar Mantar', '1724', 1724, 'Jai Singh II of Amber', 18),
-    (13, 'safdar', 'Safdarjung’s Tomb', 'c.1754', 1754, 'Shuja-ud-Daula, for his father', 18),
-    (14, 'sisganj', 'Sis Ganj Sahib', '1783 · bldg 1930', 1783, 'Baghel Singh; marks the 1675 martyrdom', 18),
-    (15, 'rb', 'Rashtrapati Bhavan', '1912–29', 1912, 'Edwin Lutyens, for the Raj', 20),
+    (0, 'rb', 'Rashtrapati Bhavan', '1912–29', 1912, 'Edwin Lutyens, for the Raj', 20),
+    (1, 'jantar', 'Jantar Mantar', '1724', 1724, 'Jai Singh II of Amber', 18),
+    (2, 'sisganj', 'Sis Ganj Sahib', '1783 · bldg 1930', 1783, 'Baghel Singh; marks the 1675 martyrdom', 18),
+    (3, 'redfort', 'Red Fort', '1639–48', 1639, 'Shah Jahan', 17),
+    (4, 'jama', 'Jama Masjid', '1650–56', 1650, 'Shah Jahan', 17),
+    (5, 'kotla', 'Feroz Shah Kotla', '1354', 1354, 'Firuz Shah Tughlaq; Ashokan Pillar 3rd c. BCE', 14),
+    (6, 'purana', 'Purana Qila', '1533–c.1545', 1533, 'Humayun, then Sher Shah Suri', 16),
+    (7, 'humayun', 'Humayun’s Tomb', '1565–72', 1565, 'Bega (Haji) Begum; Mirak Mirza Ghiyas', 16),
+    (8, 'lodi', 'Lodi Gardens', '1444–1518', 1444, 'Sayyid & Lodi sultans', 15),
+    (9, 'safdar', 'Safdarjung’s Tomb', 'c.1754', 1754, 'Shuja-ud-Daula, for his father', 18),
+    (10, 'siri', 'Siri', 'c.1303', 1303, 'Alauddin Khalji', 14),
+    (11, 'tughlaq', 'Tughlaqabad', '1321–c.1325', 1321, 'Ghiyas-ud-din Tughlaq', 14),
+    (12, 'jahan', 'Jahanpanah', 'c.1326–27', 1326, 'Muhammad bin Tughlaq (Bijay Mandal)', 14),
+    (13, 'qutb', 'Qutb Minar', 'c.1199–1220', 1199, 'Aibak, then Iltutmish; Iron Pillar c.400 CE', 12),
+    (14, 'lalkot', 'Lal Kot', 'c.1060', 1060, 'Anangpal II Tomar; Qila Rai Pithora 12th c.', 11),
 ]
 CENT = {  # colour = century of the principal fabric
     0: ('#3d3566', 'BCE – 5th c. CE'),
@@ -69,15 +70,15 @@ PLACE = {
     'kotla':   dict(off=(0, 0),    lab=('start', 26, -10)),
     'redfort': dict(off=(58, -22), lab=('start', 30, -6)),
     'sisganj': dict(off=(-24, -34), lab=('end', -22, -14)),
-    'jama':    dict(off=(-46, 34), lab=('end', -28, -6)),
+    'jama':    dict(off=(-128, 30), lab=('end', -28, -6)),
     'purana':  dict(off=(0, 0),    lab=('start', 26, -8)),
     'humayun': dict(off=(0, 0),    lab=('start', 38, -4)),
     'lodi':    dict(off=(0, 0),    lab=('middle', 0, -58)),
     'safdar':  dict(off=(-44, 30), lab=('end', -34, -8)),
     'siri':    dict(off=(0, 0),    lab=('start', 28, -6)),
-    'jahan':   dict(off=(0, 0),    lab=('end', -32, -12)),
+    'jahan':   dict(off=(0, 0),    lab=('end', -32, -17)),
     'qutb':    dict(off=(0, 0),    lab=('start', 24, 0)),
-    'lalkot':  dict(off=(-66, -6), lab=('middle', 0, -48)),
+    'lalkot':  dict(off=(-74, -6), lab=('middle', 0, -48)),
     'tughlaq': dict(off=(0, 0),    lab=('start', 30, -8)),
 }
 
@@ -280,7 +281,7 @@ for n, sid, name, built, yr, who, cent in SITES:
 
 # ---------- KEY TABLE ----------
 TY = 610
-o(f'<text x="680" y="{TY-2}" font-size="15" letter-spacing="2.5" fill="{INK}">KEY · numbered by founding date</text>')
+o(f'<text x="680" y="{TY-2}" font-size="15" letter-spacing="2.5" fill="{INK}">KEY · numbered along the suggested route, from 0</text>')
 cols = [(680, '#'), (704, 'Monument'), (858, 'Built'), (968, 'Who built it'), (1268, 'Straight'), (1338, 'By road'), (1410, 'Walk'), (1476, 'Drive*')]
 hy = TY + 20
 for x, t in cols:
@@ -319,8 +320,8 @@ d_km = R['drive1']['km'] + R['drive2']['km']; d_min = R['drive1']['min'] + R['dr
 w_km = R['walk1']['km'] + R['walk2']['km']; w_min = R['walk1']['min'] + R['walk2']['min']
 o(f'<text x="30" y="{FY+6}" font-size="13" letter-spacing="2" fill="{INK}">THE SUGGESTED DAY · DRIVE SOUTH INTO THE PAST</text>')
 foot1 = [
-    f'15 Rashtrapati Bhavan → 12 Jantar Mantar → 14 Sis Ganj; walk Chandni Chowk to 10 Red Fort and 11 Jama Masjid ({R["walk1"]["km"]:.1f} km, ~{R["walk1"]["min"]} min); drive 6 Kotla → 8 Purana Qila → 9 Humayun → 7 Lodi → 13 Safdarjung → 3 Siri',
-    f'→ 4 Tughlaqabad → 5 Jahanpanah → 2 Qutb; walk to 1 Lal Kot ({R["walk2"]["km"]:.1f} km). Driving {d_km:.0f} km (~{d_min} min free-flow, realistically 3+ hours); walking {w_km:.1f} km (~{w_min} min). Broadly, you start in 1912 and end in c.1060.',
+    f'0 Rashtrapati Bhavan → 1 Jantar Mantar → 2 Sis Ganj; walk Chandni Chowk to 3 Red Fort and 4 Jama Masjid ({R["walk1"]["km"]:.1f} km, ~{R["walk1"]["min"]} min); drive 5 Kotla → 6 Purana Qila → 7 Humayun → 8 Lodi → 9 Safdarjung → 10 Siri',
+    f'→ 11 Tughlaqabad → 12 Jahanpanah → 13 Qutb; walk to 14 Lal Kot ({R["walk2"]["km"]:.1f} km). Driving {d_km:.0f} km (~{d_min} min free-flow, realistically 3+ hours); walking {w_km:.1f} km (~{w_min} min). Broadly, you start in 1912 and end in c.1060.',
 ]
 for i, t in enumerate(foot1):
     o(f'<text x="30" y="{FY+26+i*15}" font-size="11" fill="{INK}">{esc(t)}</text>')

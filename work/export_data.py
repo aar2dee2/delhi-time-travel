@@ -60,7 +60,7 @@ for osm, old, now, who, era, link in STREETS:
     streets.append(dict(old=old, cur=cur, line2=line2, history=SD.history(old), who=who,
                         era=ERA_NAME[era], color=SD.colour(era), link=link))
 streetmap_svg, label_report = make_streetmap()
-missing = [k for k, v in label_report.items() if v != 'placed']
+missing = [k for k, v in label_report.items() if v == 'no room']
 if missing: print('street labels without room:', missing, file=sys.stderr)
 
 sites = []

@@ -197,7 +197,7 @@ footer p { margin: 0 }
 
   <section class="streets-sec" aria-labelledby="streets-h">
     <h3 id="streets-h">The streets are a timeline too</h3>
-    <p class="lede">When New Delhi was laid out in the 1920s and early 1930s, many of its avenues were named after earlier rulers of India, from Ashoka to Aurangzeb, and the rest after viceroys and other Europeans who ruled parts of India. According to the historian Narayani Gupta, Percival Spear later wrote that he had been asked to suggest names from Indian history. Many have been renamed since, some as recently as 2023. The map gives today’s name, with older names in brackets. Hover or tap a road, or a name in the list, to pick it out.</p>
+    <p class="lede">When New Delhi was laid out in the 1920s and early 1930s, many of its avenues were named after earlier rulers of India, from Ashoka to Aurangzeb, and the rest after viceroys and other Europeans who ruled parts of India. According to the historian Narayani Gupta, Percival Spear, who drew attention to the street names in his 1943 book on Delhi, had himself been asked to suggest names from Indian history. Many have been renamed since, some as recently as 2023. The map gives today’s name, with older names in brackets. Hover or tap a road, or a name in the list, to pick it out.</p>
     <div class="smapbox" id="smap">%%STREETMAP%%</div>
     <div class="eras" id="eras"></div>
   </section>
@@ -535,7 +535,7 @@ function cutaway(kind, col) {
     g += gap('M55,118 A45,44 0 0 1 145,118 Z');
     g += wall(30, 170, 140) + `<rect x="50" y="118" width="10" height="22" fill="url(#h-${kind})" stroke="${INK}"/><rect x="140" y="118" width="10" height="22" fill="url(#h-${kind})" stroke="${INK}"/>`;
     g += outer('M55,118 A45,44 0 0 1 145,118') + `<rect x="96" y="68" width="8" height="8" fill="${col}" stroke="${INK}"/>`;
-    g += inner('M60,140 A40,30 0 0 1 140,140') + `<line x1="30" y1="140" x2="50" y2="140" stroke="${INK}" stroke-width="1.4"/><line x1="150" y1="140" x2="170" y2="140" stroke="${INK}" stroke-width="1.4"/>`;
+    g += inner('M60,140 A40,30 0 0 1 95,110.24') + inner('M105,110.24 A40,30 0 0 1 140,140') + lab(100, 106, 'oculus', 'middle') + `<line x1="30" y1="140" x2="50" y2="140" stroke="${INK}" stroke-width="1.4"/><line x1="150" y1="140" x2="170" y2="140" stroke="${INK}" stroke-width="1.4"/>`;
     g += lab(150, 84, 'copper outer') + lab(100, 135, 'inner', 'middle') + lab(100, 175, 'Durbar Hall', 'middle');
   } else { // Florence: two pointed shells, stairs between
     g += gap('M40,120 Q46,50 100,26 Q154,50 160,120 L150,120 Q144,62 100,44 Q56,62 50,120 Z');
@@ -551,13 +551,13 @@ function cutaway(kind, col) {
 const DOMES = [
   { id: 'lodi', name: 'Sikandar Lodi’s tomb', when: '1517–18 · Lodi Gardens', line: 'Persian, early in India',
     text: 'Often cited as India’s first double dome. Some historians call it only a first step, and an earlier tomb in Srinagar (c.1465) has also been proposed.',
-    why: 'Inner and outer shells sit close together.' },
+    why: 'An early, experimental form of the double shell.' },
   { id: 'humayun', name: 'Humayun’s Tomb', when: '1565–72', line: 'Persian–Timurid, mature',
     text: 'The first fully developed Persian-style double dome in India. Its architect, Mirak Mirza Ghiyas, had worked in Herat and Bukhara.',
     why: 'Tall outer shell for the skyline; low inner dome so the hall below stays in proportion. Unlike Florence, no stair runs between the shells: conservators reached the cavity through a small 0.8 × 0.6 m opening in the neck, using scaffolding (AKTC).' },
   { id: 'rb', name: 'Rashtrapati Bhavan', when: '1912–29', line: 'European classical, Sanchi-shaped',
-    text: 'The official description has a lower dome beneath the copper-clad main dome, which rises about 55 m above the forecourt. The outer form is said to draw on the Sanchi stupa.',
-    why: 'A grand outer silhouette, and a separate ceiling for Durbar Hall.' },
+    text: 'The official description has a lower dome beneath the copper-clad main dome, which rises about 55 m above the forecourt. The outer form is said to draw on the Sanchi stupa. The inner dome over Durbar Hall is about 22 m across, with an oculus at its centre.',
+    why: 'A grand outer silhouette, and a separate, lit ceiling for Durbar Hall.' },
   { id: null, kind: 'florence', name: 'Florence Cathedral', when: '1420–36 · for comparison', line: 'Italian Renaissance, separate line', color: '#6b5942',
     text: 'Brunelleschi’s dome, built more than a century before Humayun’s Tomb. Some scholars argue Persian domes such as Soltaniyeh influenced it; that is debated.',
     why: 'The double shell was already in the 1367 design. Brunelleschi’s breakthrough was building it without timber centring: herringbone brickwork, a pointed profile and new hoists. Visitors climb 463 steps between the shells.' },

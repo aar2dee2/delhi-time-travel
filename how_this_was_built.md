@@ -36,7 +36,7 @@ Numbers follow the suggested route, starting at 0 (Rashtrapati Bhavan, the map's
 | 5a | Ashokan Pillar | 3rd c. BCE | Correct. Topra Kalan is now in **Yamunanagar** district, not Ambala. Re-erected c.1356. Shams-i Siraj Afif describes the move. | [Delhi-Topra pillar](https://en.wikipedia.org/wiki/Delhi-Topra_pillar) |
 | 6 | Purana Qila | 1533–c.1545 | Corrected. Humayun founded Dinpanah in 1533 (Wikipedia's infobox gives 1538). Sher Shah rebuilt it c.1540–45, and his mosque is dated 1541. | [Purana Qila](https://en.wikipedia.org/wiki/Purana_Qila) |
 | 6a | Painted Grey Ware | "1st millennium BCE" | **Softened.** PGW comes from stray sherds, some found in Mauryan levels, and excavators have not reached natural soil. "~1000 BCE" (older literature) and "~900 BCE" (ASI) are claims, not settled facts. B.B. Lal dug in 1954–55 and 1969–73; Swarnkar ran three seasons (2013–14, 2017–18, 2022–23). The Indraprastha link is traditional only. | [Daily Pioneer 2023](https://www.dailypioneer.com/2023/page1/purana-qila-reveals-more-of-its-historic-past.html) |
-| 7 | Humayun's Tomb | 1565–72 | Contested start. Sources disagree on the commissioning date (1558 or 1565); construction 1565–72 is the most widely cited span. Built by Bega (Haji) Begum, with Mirak Mirza Ghiyas as architect and his son Sayyid Muhammad completing it. Some websites say it was begun "nine days" after Humayun's death; it was about nine *years* (he died in 1556). | [UNESCO 232](https://whc.unesco.org/en/list/232) |
+| 7 | Humayun's Tomb | 1565–72 | Contested start. Sources disagree on the commissioning date (1558 or 1565); construction 1565–72 is the most widely cited span (ASI, UNESCO). Lowry (Muqarnas 4, 1987), citing Badauni, gives 1562–71, with completion in 1572. Built by Bega (Haji) Begum, with Mirak Mirza Ghiyas as architect and his son Sayyid Muhammad completing it. Some websites say it was begun "nine days" after Humayun's death; it was about nine *years* (he died in 1556). | [UNESCO 232](https://whc.unesco.org/en/list/232) |
 | 8 | Lodi Gardens | 1444–1518 | Correct. Muhammad Shah Sayyid's tomb dates to 1444; Sikandar Lodi's tomb to 1517–18, built by Ibrahim Lodi. Lodi now shares the Sultanate period in the colour scheme. | [Lodi Gardens](https://en.wikipedia.org/wiki/Lodi_Gardens) |
 | 9 | Safdarjung's Tomb | c.1754 | Corrected. Safdarjung died in 1754 and the inscription is dated 1754, so the "1753–54" printed by ASI and others is doubtful. Change "last Mughal garden-tomb" to "often called the last". | [Safdarjung's Tomb](https://en.wikipedia.org/wiki/Safdarjung%27s_Tomb) |
 | 10 | Siri | c.1303 | Correct. Built by Alauddin Khalji against Mongol raids. | [Siri Fort](https://en.wikipedia.org/wiki/Siri_Fort) |
@@ -58,21 +58,21 @@ Numbers follow the suggested route, starting at 0 (Rashtrapati Bhavan, the map's
 
 **Claim checked:** the roads radiating around India Gate and Rashtrapati Bhavan were named after different periods of history.
 
-- **Documented (high confidence):** many 1920s New Delhi avenues were deliberately named after earlier rulers of India: Ashoka, Prithviraj, the Tughlaqs, Firuz Shah, the Lodis, Sher Shah, Humayun, Akbar, Shahjahan, Aurangzeb and Safdarjung. The rest were named after viceroys and other Europeans who ruled parts of India (Curzon, Hardinge, Irwin, Clive, Dupleix, Albuquerque and others). Narayani Gupta cites Percival Spear's 1943 book, in which Spear says he was asked to suggest names from Indian history. ([The Wire](https://cms.thewire.in/news/history-needs-informed-debate-not-the-erasure-of-aurangzeb-to-install-kalam))
+- **Documented (high confidence):** many 1920s New Delhi avenues were deliberately named after earlier rulers of India: Ashoka, Prithviraj, the Tughlaqs, Firuz Shah, the Lodis, Sher Shah, Humayun, Akbar, Shahjahan, Aurangzeb and Safdarjung. The rest were named after viceroys and other Europeans who ruled parts of India (Curzon, Hardinge, Irwin, Clive, Dupleix, Albuquerque and others). Narayani Gupta writes that Percival Spear, who drew attention to the historical street names in his 1943 book Delhi: Its Monuments and History, had himself been asked to suggest names from Indian history. ([The Wire](https://cms.thewire.in/news/history-needs-informed-debate-not-the-erasure-of-aurangzeb-to-install-kalam))
 - **Interpretation (moderate confidence):** that the names presented the Raj as the latest heir to Delhi's empires. Swapna Liddle calls it a "rebranding" ([ThePrint](https://theprint.in/feature/around-town/british-gave-delhi-a-makeover-to-show-they-werent-all-bad-ended-up-with-lutyens-baker-ego-war/2277615/)), but no official statement of that motive has been found.
 - **Not supported:** zoning by period. Mughal, Sultanate and viceregal names are mixed together. Tughlak Road is about 11 km from Tughlaqabad as the crow flies. No road for Jahangir or the Khaljis has been found; this is inferred from present-day names, not from a 1920s list.
 - **Renamings since 2014, verified (all decided by the NDMC):**
   - Aurangzeb Road → Dr APJ Abdul Kalam Road (28 Aug 2015)
   - Race Course Road → Lok Kalyan Marg (21 Sep 2016)
   - Dalhousie Road → Dara Shikoh Road (6 Feb 2017)
-  - Rajpath → Kartavya Path (7 Sep 2022). Kingsway had become Rajpath, and Queensway Janpath, by a Union Cabinet decision of 27 July 1955.
+  - Rajpath → Kartavya Path (7 Sep 2022). Kingsway became Rajpath, and Queensway Janpath, after Independence. Nehru's note of 24 July 1955 proposed exactly these names as a first, limited batch, so 1955 is the likely date, but no formal decision record has been found.
   - Aurangzeb Lane → Dr APJ Abdul Kalam Lane (June 2023). OpenStreetMap still uses the old name, so the map labels it from this list.
-- **Not official renamings:** Teen Murti Chowk became Teen Murti Haifa Chowk in 2018, but it's a roundabout, not a road. In March 2025 two MPs put "Swami Vivekananda Marg" on their Tughlak Lane nameplates, but no NDMC decision followed. No NDMC road renamings in the area were found for 2024–26.
+- **Not official renamings:** Teen Murti Chowk became Teen Murti Haifa Chowk in 2018, but it's a roundabout, not a road. In March 2025 two MPs put "Swami Vivekananda Marg" on their Tughlak Lane nameplates, and later that month activists spray-painted other names over the signs for Shahjahan Road, Akbar Road, Humayun Road and Tughlak Lane; neither led to an NDMC decision. No NDMC road renamings in the area were found for 2024–26.
 - **Dates and namesakes with caveats:**
-  - **Willingdon Crescent:** Willingdon was Viceroy only from 1931, so the crescent was named in the 1930s, not the 1920s. It was reportedly renamed after Mother Teresa's death in 1997; the year isn't verified.
-  - **Race Course Road:** when it got that name isn't established. The Delhi Race Club has been at this site since 1926.
-  - **Tees January Marg:** the Nehru Archive record dates the Albuquerque Road renaming to 1955. Popular accounts say 1948.
-  - **Unsourced namesakes:** Queensway's namesake (usually taken to be Queen Mary), Man Singh Road (probably Man Singh I), Jai Singh Road (I or II) and York Road (probably Prince Albert, Duke of York) are not documented. Hastings Road → Krishna Menon Marg rests on general lists.
+  - **Willingdon Crescent:** Willingdon was Viceroy only from 1931, so the crescent was named in the 1930s, not the 1920s. The NDMC resolved to rename it Mother Teresa Crescent at its meeting of 26 September 2003 (minutes confirmed 31 October 2003).
+  - **Race Course Road:** when it got that name isn't established. The Delhi Race Club was founded at this site in 1926 and registered in 1940.
+  - **Tees January Marg:** Nehru's note of 24 July 1955 proposed the name for Albuquerque Road. Popular accounts say 1948 (unverified).
+  - **Unsourced namesakes and pairs:** Queensway's namesake (often said to be Queen Mary; unverified), Man Singh Road (probably Man Singh I), Jai Singh Road (I or II) and York Road (probably Prince Albert, Duke of York) are not documented. The Wellesley Road → Dr Zakir Hussain Marg and Hastings Road → Krishna Menon Marg pairs rest on general lists. Tilak Marg's old name is given as Hardinge Avenue by the Delhi Walla and as Hardinge Road by Wikipedia.
 - **Spelling variants, not renamings:** Tughlak Road (also spelled Tughlaq), Feroz Shah Road (also Firoz Shah or Ferozshah) and Lodhi Road (also Lodi). Clive Road is now Tyagraj Marg, the NDMC spelling; Thyagaraja Marg is also used.
 
   The other old-to-new pairs for viceregal roads follow the Wikipedia and Delhi Walla lists.
@@ -89,10 +89,10 @@ Numbers follow the suggested route, starting at 0 (Rashtrapati Bhavan, the map's
 ## Double domes
 
 **Claims on the interactive page and the comparison images:**
-- **Sikandar Lodi's tomb (1517–18):** often cited as India's first double dome. Some sources call it only a first step, and an earlier tomb in Srinagar (c.1465) has also been proposed. ([GKToday](https://www.gktoday.in/double-dome/), [Archnet](https://www.archnet.org/sites/1585))
+- **Sikandar Lodi's tomb (1517–18):** often cited as India's first double dome. Some sources call it only a first step, and an earlier tomb in Srinagar (c.1465) has also been proposed. The 1517–18 date and Ibrahim Lodi as builder come from Wikipedia and GKToday; Archnet dates the tomb to Sikandar's reign (1489–1517) and confirms the double dome. ([GKToday](https://www.gktoday.in/double-dome/), [Archnet](https://www.archnet.org/sites/1585))
 - **Humayun's Tomb (c.1565–72):** generally credited with the first fully developed Persian-style double dome in India. Its architect, Mirak Mirza Ghiyas, had worked in Herat and Bukhara. ([University of Washington Silk Road project](https://depts.washington.edu/silkroad/cities/india/delhi/humayun/humayun.html))
-- **Rashtrapati Bhavan (1912–29):** the official site describes "a lower dome beneath this main dome". The main dome is copper-clad and about 55 m above the forecourt; its outer form is said to draw on the Sanchi stupa. Construction details of the inner dome weren't found. ([President of India](https://www.presidentofindia.gov.in/hi/node/1129), [Rashtrapati Bhavan](https://rashtrapatibhavan.gov.in/rbtour/central-dome))
-- **Florence (1420–36):** earlier than Humayun's Tomb but a separate tradition. The double shell and the stone-and-timber chains were already specified in Neri di Fioravanti's 1367 design. Brunelleschi's breakthrough was building it without timber centring, using herringbone brickwork, a pointed ("quinto acuto") profile and new hoists. The thick inner shell carries the load. The theory that Persian domes such as Soltaniyeh influenced Florence (Sanpaolesi, 1972) is real but contested. ([Museo Galileo](https://brunelleschi.imss.fi.it/itineraries/place/TheDomeOfSantaMariaFiore.html), [Dome of Soltaniyeh](https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh))
+- **Rashtrapati Bhavan (1912–29):** the official site describes "a lower dome beneath this main dome". The main dome is copper-clad and about 55 m above the forecourt; its outer form is said to draw on the Sanchi stupa. The official Durbar Hall page adds that the inner dome is about 22 m across and 25 m above the ground, with an oculus at its centre; the cutaway shows the oculus. ([President of India](https://www.presidentofindia.gov.in/hi/node/1129), [Rashtrapati Bhavan](https://rashtrapatibhavan.gov.in/rbtour/central-dome), [Durbar Hall](https://rashtrapatibhavan.gov.in/rbtour/durbar-hall))
+- **Florence (1420–36):** earlier than Humayun's Tomb but a separate tradition. The double shell and the stone-and-timber chains were already specified in Neri di Fioravanti's 1367 design. Brunelleschi's breakthrough was building it without timber centring, using herringbone brickwork, a pointed ("quinto acuto") profile and new hoists. The thick inner shell carries the load. The theory that Persian domes such as Soltaniyeh influenced Florence (Sanpaolesi, 1972) is real but contested. ([Museo Galileo](https://brunelleschi.imss.fi.it/itineraries/place/TheDomeOfSantaMariaFiore.html) for the dates, the lack of centring and the pointed profile; [Florence Cathedral](https://en.wikipedia.org/wiki/Florence_Cathedral) and its sources for the 1367 model, the chains, herringbone brickwork and hoists; [Dome of Soltaniyeh](https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh))
 
 **Brunelleschi fact-check (Fable, 19 Oct 2026).** Two errors in the first answer were corrected:
 - Foundation to finished dome was about **140 years** (1296 to 1436), not 120.
@@ -103,7 +103,7 @@ Nuances: there was no clean winner of the 1418 competition (his scheme was adopt
 **Stairs between the shells.**
 - **Florence:** visitors climb 463 steps between the shells, and the cutaway shows that climb.
 - **Humayun's Tomb:** no stair between the shells is documented. The Aga Khan Trust for Culture, which repaired the cavity in 2009–11, calls the inner dome "barely accessible". Its inner surface "was accessible only through a small opening of 0.8 x 0.6 metre in the neck of the dome", and the team had to put up scaffolding ([AKTC](https://www.nizamuddinrenewal.org/conservation/humayun-tomb/data/dome.php)).
-- **Humayun's Tomb, what is documented:** Glenn Lowry's measured roof plan and photograph (Muqarnas 4, 1987) show doorways from the roof terrace into the base of the drum, and small stairs in the portal blocks. The cutaway marks the opening and a roof-terrace doorway, and draws no stair.
+- **Humayun's Tomb, what is documented:** Glenn Lowry's measured roof plan and photograph (Muqarnas 4, 1987) show doorways from the roof terrace into the base of the drum, and what appear to be small stairs in the portal blocks. The cutaway marks the opening and a roof-terrace doorway, and draws no stair.
 
 **The cutaways are schematic.** They show how the shells relate, not measured profiles.
 
@@ -135,6 +135,25 @@ The Lodi and Humayun comparison images combine CC BY-SA photos, so they are shar
 - **Survivorship bias.** This is a map of what power built in stone. The houses and bazaars of every century shown are almost all gone.
 - **The 19th century is missing.** The century of 1857 has no monument on the map. This is the most visible gap, and a candidate for a future layer.
 - **Drive times are free-flow.** They come from OpenStreetMap routing; expect 2–3× longer in Delhi traffic.
+
+## Domes and roads audit (Fable, 19 Oct 2026, from live web sources)
+
+**Confirmed:**
+- Every post-2014 renaming, with its NDMC date.
+- That each road's OpenStreetMap name is the right road.
+- The namesakes' dates, India Gate (1931) and the dome claims.
+- All four photo credits and licences.
+
+**Fixed:**
+- Mother Teresa Crescent renaming dated to 2003.
+- Spear attribution reworded.
+- 1955 renamings described as Nehru's proposal.
+- Prithviraj's reign corrected to c.1177–92.
+- The Lodi legend's date span.
+- Race Club dates.
+- The Durbar Hall oculus added to the cutaway.
+- Humayun's Tomb dates made consistent.
+- Three street labels moved closer to their roads.
 
 ## Street-names fact-check (Fable, 19 Oct 2026)
 

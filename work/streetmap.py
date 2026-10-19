@@ -154,7 +154,7 @@ def make_streetmap():
     cpx, cpy = P(28.6315, 77.2167)
     f_w = ImageFont.truetype(GEORGIA_I, 10.5)
     obstacles.append(rect(cpx, cpy - 4, f_w.getlength('CONNAUGHT PLACE') * 1.15 + 6, 15, 0))
-    LEG = [(0, 'Ancient'), (12, 'Rajput'), (14, 'Delhi Sultanate (14th c.)'), (15, 'Delhi Sultanate (15th c.)'), (16, 'Sur and Mughal (16th c.)'),
+    LEG = [(0, 'Ancient'), (12, 'Rajput'), (14, 'Delhi Sultanate (14th c.)'), (15, 'Delhi Sultanate (15th–16th c.)'), (16, 'Sur and Mughal (16th c.)'),
            (17, 'Mughal (17th c.)'), (18, 'Late Mughal (18th c.)'), ('eu', 'British and European'), (None, 'Jai Singh of Amber (I or II?)'), ('other', 'Other renaming since 2014')]
     lw, lh = 236, 34 + 15 * len(LEG) + 45
     lx, ly = X0 + 8, Y0 + H - lh - 8
@@ -252,10 +252,11 @@ def make_streetmap():
             # last resort: a horizontal label close by, with a thin pointer to the road
             pts_ = [q for l in lines[i] for q in l]
             mid = min(pts_, key=lambda q: math.dist(q, (sum(p[0] for p in pts_)/len(pts_), sum(p[1] for p in pts_)/len(pts_))))
-            for strict in (True, False):
-                for r in range(24, 200, 8):
-                    for k in range(16):
-                        t = math.radians(k * 22.5)
+            # nearest free spot first (a short pointer matters more than avoiding a crossing road)
+            for r in range(20, 200, 6):
+                for strict in (True, False):
+                    for k in range(24):
+                        t = math.radians(k * 15)
                         cx, cy = mid[0] + r * math.cos(t), mid[1] + r * math.sin(t)
                         R = rect(cx, cy, tw, th, 0)
                         if fits(R, i, strict): best, leader = (cx, cy, 0, R), mid; break
@@ -265,6 +266,7 @@ def make_streetmap():
             cx, cy, ang, R = best; placed.append(R)
             if leader:
                 ex = max(min(leader[0], cx + tw/2), cx - tw/2); ey = cy + (th/2 if leader[1] > cy else -th/2)
+                report['_leader:' + old] = round(math.dist(leader, (ex, ey)))
                 o.append(f'<line class="sleader" data-i="{i}" x1="{leader[0]:.1f}" y1="{leader[1]:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="{INK}" stroke-width=".7" stroke-dasharray="2 2"/>')
             halo = f'paint-order="stroke" stroke="{PAPER}" stroke-width="3" stroke-linejoin="round"'
             if line2:

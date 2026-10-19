@@ -4,7 +4,7 @@
 EUROPE = '#4a5666'
 STREETS = [
  (['Ashoka Road'], 'Ashoka Road', None, 'Ashoka, Maurya emperor, r. c.268–232 BCE', 0, 'kotla'),
- (['Prithviraj Road'], 'Prithviraj Road', None, 'Prithviraj Chauhan, r. c.1178–92', 12, 'lalkot'),
+ (['Prithviraj Road'], 'Prithviraj Road', None, 'Prithviraj Chauhan, r. c.1177–92', 12, 'lalkot'),
  (['Tughlaq Road'], 'Tughlak Road', None, 'The Tughlaq dynasty, 1320–1413', 14, 'tughlaq'),
  (['Firoz Shah Road'], 'Feroz Shah Road', None, 'Firuz Shah Tughlaq, r. 1351–88', 14, 'kotla'),
  (['Lodhi Road'], 'Lodi Road', None, 'The Lodi dynasty, 1451–1526', 15, 'lodi'),
@@ -18,7 +18,7 @@ STREETS = [
  (['Najaf Khan Road'], 'Najaf Khan Road', None, 'Mirza Najaf Khan, Mughal commander, d. 1782', 18, None),
  (['Jai Singh Road'], 'Jai Singh Road', None, 'Jai Singh of Amber (sources differ on whether I or II)', None, None),
  (['Kartavya Path'], 'Kingsway', 'Rajpath after Independence (1955), Kartavya Path 2022', 'King George V', 'eu', 'rb'),
- (['Janpath'], 'Queensway', 'Janpath after Independence (1955)', 'the Queen (usually taken to be Queen Mary)', 'eu', None),
+ (['Janpath'], 'Queensway', 'Janpath after Independence (1955)', 'the Queen (often said to be Queen Mary; unverified)', 'eu', None),
  (['Kasturba Gandhi Marg'], 'Curzon Road', 'Kasturba Gandhi Marg', 'Lord Curzon, Viceroy 1899–1905', 'eu', None),
  (['Tilak Marg'], 'Hardinge Avenue', 'Tilak Marg', 'Lord Hardinge, Viceroy 1910–16', 'eu', None),
  (['Baba Kharak Singh Marg'], 'Irwin Road', 'Baba Kharak Singh Marg', 'Lord Irwin, Viceroy 1926–31', 'eu', None),
@@ -40,7 +40,7 @@ STREETS = [
 ERA_NAME = {0: 'Ancient', 12: 'Rajput', 14: 'Delhi Sultanate', 15: 'Delhi Sultanate', 16: 'Sur & Mughal', 17: 'Mughal', 18: 'Late Mughal', None: 'Uncertain', 'eu': 'British & European'}
 
 # Lok Kalyan Marg is not a ruler's or viceroy's name, but it is the best-known renaming in the area since 2014.
-STREETS.append((['Lok Kalyan Marg'], 'Race Course Road', 'Lok Kalyan Marg since 2016', 'the Delhi race course (Delhi Race Club, at this site since 1926; not a ruler)', 'other', None))
+STREETS.append((['Lok Kalyan Marg'], 'Race Course Road', 'Lok Kalyan Marg since 2016', 'the Delhi race course (Delhi Race Club, founded here 1926, registered 1940; not a ruler)', 'other', None))
 # OSM still labels this lane with its old name; NDMC renamed it in June 2023.
 STREETS.append((['Aurangzeb Lane'], 'Aurangzeb Lane', 'Dr APJ Abdul Kalam Lane since 2023', 'Aurangzeb, Mughal emperor, r. 1658–1707', 17, 'sisganj'))
 ERA_NAME['other'] = 'Other renaming since 2014'
@@ -99,7 +99,7 @@ def history(old):
     if old == 'Race Course Road':
         return 'Race Course Road until 2016 (when it got that name is not established)'
     if old == 'Willingdon Crescent':
-        return 'Willingdon Crescent from the 1930s; reportedly renamed after Mother Teresa’s death in 1997 (year not verified)'
+        return 'Willingdon Crescent from the 1930s; renamed Mother Teresa Crescent by the NDMC on 26 September 2003'
     if old == 'Aurangzeb Lane':
         return 'Aurangzeb Lane until June 2023'
     if pre and pre != old:

@@ -38,7 +38,7 @@ def cutaway_svg(kind, col):
         g += gap('M55,118 A45,44 0 0 1 145,118 Z')
         g += wall(30, 170, 140) + pier(50, 118, 22) + pier(140, 118, 22)
         g += outer('M55,118 A45,44 0 0 1 145,118') + f'<rect x="96" y="68" width="8" height="8" fill="{col}" stroke="{INK}"/>'
-        g += inner('M60,140 A40,30 0 0 1 140,140') + f'<line x1="30" y1="140" x2="50" y2="140" stroke="{INK}" stroke-width="1.4"/><line x1="150" y1="140" x2="170" y2="140" stroke="{INK}" stroke-width="1.4"/>'
+        g += inner('M60,140 A40,30 0 0 1 95,110.24') + inner('M105,110.24 A40,30 0 0 1 140,140') + lab(100, 106, 'oculus', 'middle') + f'<line x1="30" y1="140" x2="50" y2="140" stroke="{INK}" stroke-width="1.4"/><line x1="150" y1="140" x2="170" y2="140" stroke="{INK}" stroke-width="1.4"/>'
         g += lab(146, 82, 'copper-clad outer') + lab(100, 135, 'inner dome', 'middle') + lab(100, 175, 'Durbar Hall', 'middle')
     else:  # florence
         g += gap('M40,120 Q46,50 100,26 Q154,50 160,120 L150,120 Q144,62 100,44 Q56,62 50,120 Z')
@@ -66,10 +66,10 @@ def wrap(draw, text, font, width):
 DOMES = {
  'lodi': dict(title='Sikandar Lodi’s tomb, Lodi Gardens, Delhi', date='1517–18', col='#7d9a3c',
               line='Persian tradition, early in India. Often cited as India’s first double dome; some historians call it only a first step.'),
- 'humayun': dict(title='Humayun’s Tomb, Delhi', date='c.1565–72', col='#c49a1e',
+ 'humayun': dict(title='Humayun’s Tomb, Delhi', date='1565–72', col='#c49a1e',
               line='Persian–Timurid, mature. A tall outer shell for the skyline over a low inner dome that keeps the hall in proportion. Unlike Florence, no stair runs between the shells: conservators reached the cavity through a 0.8 × 0.6 m opening and scaffolding (AKTC).'),
  'rb': dict(title='Rashtrapati Bhavan, New Delhi', date='1912–29', col='#7a2e4f',
-              line='European classical, Sanchi-shaped. A copper-clad outer dome over a lower inner dome above Durbar Hall; construction details undocumented.'),
+              line='European classical, Sanchi-shaped. A copper-clad outer dome over a lower inner dome, about 22 m across with a central oculus, above Durbar Hall.'),
  'florence': dict(title='Florence Cathedral (Santa Maria del Fiore)', date='1420–36', col='#6b5942',
               line='Italian Renaissance. The double shell was already in the 1367 design; Brunelleschi built it without timber centring. The thick inner shell carries the load; visitors climb 463 steps between the shells.'),
 }

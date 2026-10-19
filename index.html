@@ -78,8 +78,17 @@ footer p { margin: 0 }
 .tip { position: fixed; z-index: 5; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--paper); font-size: 13px; line-height: 1.35; padding: 6px 9px; border-radius: 2px }
 .tip b { display: block; font-size: 14px }
 .street { cursor: pointer }
-.street .vis { transition: stroke-width .15s, opacity .15s }
-.street.hot .vis { stroke-width: 6; opacity: 1 }
+.street .vis { stroke-width: 2.6; opacity: .7; transition: stroke-width .15s, opacity .2s }
+.street .case { opacity: 0 }
+.street.hot .vis { stroke-width: 4.5; opacity: 1 }
+/* street mode: everything else steps back so the streets read clearly */
+#map.streets-on [data-layer="drive"], #map.streets-on [data-layer="walk"] { opacity: .25 }
+#map.streets-on .site:not(.sel) { opacity: .45 }
+/* one street picked: the others fade, the picked one gets a paper casing and a name tag */
+#map.street-picked .street:not(.picked) .vis { opacity: .12 }
+.street.picked .vis { stroke-width: 6; opacity: 1 }
+.street.picked .case { opacity: 1 }
+.era li.picked { background: var(--paper-3) }
 .domes-sec { margin-top: 36px }
 .domes-sec .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap }
 .domes-sec h3 { font-family: var(--display); font-weight: 400; letter-spacing: .1em; font-size: 20px; margin: 0 }
@@ -245,7 +254,7 @@ function drawMap() {
     h += `<g class="street" data-i="${i}">`;
     for (const l of st.lines) {
       const p = l.map(q => q.join(',')).join(' ');
-      h += `<polyline class="vis" points="${p}" fill="none" stroke="${st.color}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/><polyline points="${p}" fill="none" stroke="transparent" stroke-width="12"/>`;
+      h += `<polyline class="case" points="${p}" fill="none" stroke="${PAPER}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><polyline class="vis" points="${p}" fill="none" stroke="${st.color}" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${p}" fill="none" stroke="transparent" stroke-width="12"/>`;
     }
     h += `</g>`;
   });
@@ -281,6 +290,8 @@ function drawMap() {
   for (const s of D.sites.filter(s => s.older)) {
     h += `<path class="older-mark" data-host="${s.id}" d="M${s.x + 7},${s.y - 5} l5,5 l-5,5 l-5,-5 Z" fill="${D.ancient}" stroke="${PAPER}" stroke-width="1" opacity=".35"/>`;
   }
+  h += `<g id="streetTop" pointer-events="none"></g>`;
+  h += `<g id="streetTag" hidden pointer-events="none" font-family="Spectral, Georgia, serif" filter="url(#plate)"><text class="t1" text-anchor="middle" font-size="13" font-weight="700" fill="${INK}"></text><text class="t2" text-anchor="middle" font-size="10.5" font-style="italic" fill="${SEPIA}"></text></g>`;
   // double-dome thread: links the three sites in date order
   {
     const ids = ['lodi', 'humayun', 'rb'], P = ids.map(id => { const s = byId[id]; return [s.x + s.off[0], s.y + s.off[1] - 22]; });
@@ -301,11 +312,13 @@ function drawMap() {
   svg.innerHTML = h;
   svg.querySelectorAll('.street').forEach(g => {
     const st = D.streets[+g.dataset.i];
-    g.addEventListener('mousemove', e => showTip(e, st));
+    g.addEventListener('mousemove', e => { if (picked === null) showTip(e, st); });
     g.addEventListener('mouseleave', () => { hideTip(); hotStreet(null); });
     g.addEventListener('mouseenter', () => hotStreet(+g.dataset.i));
-    g.addEventListener('click', e => { showTip(e, st); if (st.link) select(st.link); });
+    g.addEventListener('click', e => { e.stopPropagation(); hideTip(); pickStreet(picked === +g.dataset.i ? null : +g.dataset.i); });
   });
+  // clicking anywhere else on the map clears a picked street
+  svg.addEventListener('click', e => { if (picked !== null && !e.target.closest('.street')) pickStreet(null); });
   svg.querySelectorAll('.site').forEach(g => {
     g.addEventListener('click', () => select(g.dataset.id));
     g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(g.dataset.id); } });
@@ -480,6 +493,34 @@ function hotStreet(i) {
 function setStreets(on) {
   document.getElementById('l-streets').checked = on;
   document.querySelectorAll('#map [data-layer="streets"]').forEach(el => el.classList.toggle('off', !on));
+  document.getElementById('map').classList.toggle('streets-on', on);
+  if (!on) pickStreet(null);
+}
+// Midpoint of a street's longest drawn piece, used to place its name tag.
+function streetMid(st) {
+  const l = st.lines.reduce((a, b) => (b.length > a.length ? b : a));
+  return l[Math.floor(l.length / 2)];
+}
+let picked = null;
+function pickStreet(i) {
+  picked = i;
+  const map = document.getElementById('map'), tag = document.getElementById('streetTag');
+  map.classList.toggle('street-picked', i !== null);
+  map.querySelectorAll('.street').forEach(g => g.classList.toggle('picked', +g.dataset.i === i));
+  document.querySelectorAll('.era li').forEach(li => li.classList.toggle('picked', +li.dataset.i === i));
+  const topLayer = document.getElementById('streetTop');
+  if (i === null) { tag.hidden = true; topLayer.innerHTML = ''; return; }
+  // redraw the picked street above the monuments and labels so nothing hides it
+  topLayer.innerHTML = D.streets[i].lines.map(l => { const p = l.map(q => q.join(',')).join(' ');
+    return `<polyline points="${p}" fill="none" stroke="${PAPER}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${p}" fill="none" stroke="${D.streets[i].color}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`; }).join('');
+  // tag sits just above the street's highest point, centred on its middle, kept inside the frame
+  const st = D.streets[i], [mx] = streetMid(st), top = Math.min(...st.lines.flat().map(q => q[1]));
+  const x = Math.max(F.x0 + 110, Math.min(F.x1 - 110, mx)), y = top - 10 < F.y0 + 34 ? Math.max(...st.lines.flat().map(q => q[1])) + 30 : top - 10;
+  const [t1, t2] = tag.querySelectorAll('text');
+  t1.setAttribute('x', x); t1.setAttribute('y', y - 13); t1.textContent = st.old;
+  t2.setAttribute('x', x); t2.setAttribute('y', y); t2.textContent = st.now ? `now ${st.now}` : st.who;
+  tag.hidden = false;
+  if (st.link) select(st.link);
 }
 function drawStreetList() {
   const order = ['Ancient', 'Rajput', 'Delhi Sultanate', 'Sur & Mughal', 'Mughal', 'Late Mughal', 'Uncertain', 'British & European'];
@@ -495,7 +536,7 @@ function drawStreetList() {
     li.addEventListener('mouseenter', () => { setStreets(true); hotStreet(i); });
     li.addEventListener('mouseleave', () => hotStreet(null));
     li.addEventListener('focus', () => { setStreets(true); hotStreet(i); });
-    const go = () => { setStreets(true); hotStreet(i); if (st.link) select(st.link); document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    const go = () => { setStreets(true); pickStreet(i); document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
     li.addEventListener('click', go);
     li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
   });
@@ -589,7 +630,8 @@ const _select = select;
 select = (id, scroll) => { _select(id, scroll); document.querySelectorAll('.dome[data-id]').forEach(el => el.classList.toggle('sel', el.dataset.id === id)); };
 
 /* ---------------- layers ---------------- */
-for (const k of ['drive', 'walk', 'rings', 'river', 'labels', 'streets']) {
+document.getElementById('l-streets').addEventListener('change', e => setStreets(e.target.checked));
+for (const k of ['drive', 'walk', 'rings', 'river', 'labels']) {
   document.getElementById('l-' + k).addEventListener('change', e => {
     document.querySelectorAll(`#map [data-layer="${k}"]`).forEach(el => el.classList.toggle('off', !e.target.checked));
   });

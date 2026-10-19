@@ -2595,7 +2595,8 @@ function cutaway(kind, col) {
     g += wall(28, 172, 120);
     g += `<path d="M40,120 Q46,50 100,26 Q154,50 160,120" fill="none" stroke="${col}" stroke-width="2.5"/><path d="M50,120 Q56,62 100,44 Q144,62 150,120" fill="none" stroke="${INK}" stroke-width="7"/>`;
     g += `<rect x="94" y="10" width="12" height="16" fill="${col}" stroke="${INK}"/>`;
-    g += lab(164, 70, 'thin outer') + lab(100, 100, 'thick inner', 'middle') + lab(100, 170, 'octagonal drum', 'middle');
+    g += `<path d="M153.9,111.1 L153.9,102.6 L152.4,102.6 L152.4,94.5 L150.5,94.5 L150.5,86.9 L148.1,86.9 L148.1,79.8 L145.2,79.8 L145.2,73.0 L142.0,73.0 L142.0,66.8 L138.2,66.8 L138.2,60.9 L134.1,60.9 L134.1,55.5 L129.5,55.5" fill="none" stroke="${SEPIA}" stroke-width="1.1"/>`;   // the climb between the shells
+    g += lab(164, 70, 'thin outer') + lab(160, 104, 'stairs') + lab(100, 100, 'thick inner', 'middle') + lab(100, 170, 'octagonal drum', 'middle');
   }
   g += `<line x1="10" y1="200" x2="190" y2="200" stroke="${INK}" stroke-width="1.2"/>`;
   return `<svg viewBox="0 0 200 210" role="img" aria-label="Schematic cutaway of the ${kind} dome"><defs>${hatch}</defs>${g}</svg>`;
@@ -2612,7 +2613,7 @@ const DOMES = [
     why: 'A grand outer silhouette, and a separate ceiling for Durbar Hall.' },
   { id: null, kind: 'florence', name: 'Florence Cathedral', when: '1420–36 · for comparison', line: 'Italian Renaissance, separate line', color: '#6b5942',
     text: 'Brunelleschi’s dome, built more than a century before Humayun’s Tomb. Some scholars argue Persian domes such as Soltaniyeh influenced it; that is debated.',
-    why: 'The double shell was already in the 1367 design. Brunelleschi’s breakthrough was building it without timber centring: herringbone brickwork, a pointed profile and new hoists. Visitors climb between the shells.' },
+    why: 'The double shell was already in the 1367 design. Brunelleschi’s breakthrough was building it without timber centring: herringbone brickwork, a pointed profile and new hoists. Visitors climb 463 steps between the shells.' },
 ];
 function drawDomes() {
   const box = document.getElementById('domes');

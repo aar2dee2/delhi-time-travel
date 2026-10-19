@@ -43,7 +43,8 @@ def cutaway_svg(kind, col):
         g += wall(28, 172, 120)
         g += f'<path d="M40,120 Q46,50 100,26 Q154,50 160,120" fill="none" stroke="{col}" stroke-width="2.5"/>' + f'<path d="M50,120 Q56,62 100,44 Q144,62 150,120" fill="none" stroke="{INK}" stroke-width="7"/>'
         g += f'<rect x="94" y="10" width="12" height="16" fill="{col}" stroke="{INK}"/>'
-        g += lab(160, 66, 'thin outer shell') + lab(100, 96, 'thick inner shell', 'middle') + lab(100, 170, 'octagonal drum', 'middle')
+        g += f'<path d="M153.9,111.1 L153.9,102.6 L152.4,102.6 L152.4,94.5 L150.5,94.5 L150.5,86.9 L148.1,86.9 L148.1,79.8 L145.2,79.8 L145.2,73.0 L142.0,73.0 L142.0,66.8 L138.2,66.8 L138.2,60.9 L134.1,60.9 L134.1,55.5 L129.5,55.5" fill="none" stroke="{SEPIA}" stroke-width="1.1"/>'   # the climb between the shells
+        g += lab(160, 66, 'thin outer shell') + lab(162, 100, 'stairs between') + lab(162, 110, 'the shells') + lab(100, 96, 'thick inner shell', 'middle') + lab(100, 170, 'octagonal drum', 'middle')
     g += f'<line x1="10" y1="200" x2="190" y2="200" stroke="{INK}" stroke-width="1.2"/>'
     # wider viewBox so right-hand labels are never clipped
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 210" width="230" height="210"><defs>{hatch}</defs>{g}</svg>'
@@ -68,7 +69,7 @@ DOMES = {
  'rb': dict(title='Rashtrapati Bhavan, New Delhi', date='1912–29', col='#7a2e4f',
               line='European classical, Sanchi-shaped. A copper-clad outer dome over a lower inner dome above Durbar Hall; construction details undocumented.'),
  'florence': dict(title='Florence Cathedral (Santa Maria del Fiore)', date='1420–36', col='#6b5942',
-              line='Italian Renaissance. The double shell was already in the 1367 design; Brunelleschi built it without timber centring. Thick inner shell carries the load.'),
+              line='Italian Renaissance. The double shell was already in the 1367 design; Brunelleschi built it without timber centring. The thick inner shell carries the load; visitors climb 463 steps between the shells.'),
 }
 credits = json.load(open('photo_credits.json'))
 H = 2400                                # photo height in output

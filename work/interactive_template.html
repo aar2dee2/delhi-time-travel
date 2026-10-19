@@ -1,0 +1,595 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How to Time Travel in Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Spectral:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: an old survey sheet. Map on the left, a "time dial" and field card on the right; chart and itinerary below.
+   Deliberately single-theme (parchment and ink) in every viewer theme. */
+:root {
+  --paper: #efe6d2; --paper-2: #e7dcc4; --paper-3: #ddd0b2;
+  --ink: #2a2118; --sepia: #5b4a36; --rule: #6b5942;
+  --route: #8a2f1f; --river: #9fbcc0; --ancient: #3d3566;
+  --display: 'IM Fell English SC', 'Iowan Old Style', Georgia, serif;
+  --body: 'Spectral', Georgia, 'Palatino Linotype', serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; margin: 0 }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 40px }
+header h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 50px); letter-spacing: .04em; line-height: 1.05; margin: 0; text-wrap: balance }
+header p { color: var(--sepia); font-style: italic; margin: 8px 0 0; max-width: 68ch }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; margin-top: 24px; align-items: start }
+.mapcard { border: 1.4px solid var(--rule); outline: .6px solid var(--rule); outline-offset: 3px; background: var(--paper-2); min-width: 0 }
+.mapcard svg { display: block; width: 100%; height: auto }
+aside { display: grid; gap: 20px; min-width: 0; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px) }
+
+.dial { border: 1px solid var(--rule); padding: 16px 18px; background: var(--paper-2) }
+.dial-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap }
+.year { font-family: var(--display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums }
+.year small { font-size: 18px; color: var(--sepia) }
+.dial input[type=range] { width: 100%; margin: 14px 0 4px; accent-color: var(--route) }
+.ticks { position: relative; height: 18px; font-size: 12px; color: var(--sepia); font-variant-numeric: tabular-nums }
+.ticks span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap }
+.ticks span:first-child { transform: none } .ticks span:last-child { transform: translateX(-100%) }
+.dial .now { font-size: 14px; color: var(--sepia); margin: 10px 0 0; min-height: 3em }
+.btnrow { display: flex; gap: 8px; flex-wrap: wrap }
+button { font: 600 14px var(--body); color: var(--paper); background: var(--ink); border: 0; padding: 7px 14px; cursor: pointer; border-radius: 2px }
+button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule) }
+button:focus-visible, input:focus-visible, .site:focus-visible, li[tabindex]:focus-visible { outline: 2px solid var(--route); outline-offset: 2px }
+
+.card { border-top: 3px solid var(--card, var(--ink)); background: var(--paper); padding: 4px 0 0 }
+.card h2 { font-family: var(--display); font-weight: 400; font-size: 28px; margin: 6px 0 0; line-height: 1.1; display: flex; gap: 10px; align-items: center }
+.badge { flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font: 700 14px var(--body); color: #f6efdf; border: 1px solid var(--ink) }
+.card .built { font-weight: 700; margin: 6px 0 0; font-variant-numeric: tabular-nums }
+.card .who { font-style: italic; color: var(--sepia); margin: 0 }
+.card .story { margin: 10px 0 0; max-width: 62ch }
+.card .older { margin: 10px 0 0; padding: 8px 10px; border-left: 3px solid var(--ancient); background: color-mix(in srgb, var(--ancient) 8%, var(--paper)); color: var(--ancient); font-size: 14px }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0; padding: 10px 0 0; border-top: 1px solid var(--paper-3) }
+.stats div { min-width: 0 }
+.stats dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--sepia) }
+.stats dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums }
+.card a { color: var(--route) }
+.layers { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; color: var(--sepia) }
+.layers label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer }
+.layers input { accent-color: var(--route) }
+
+.lower { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; margin-top: 36px }
+.lower h3 { font-family: var(--display); font-weight: 400; letter-spacing: .1em; font-size: 20px; margin: 0 }
+.lower .sub { color: var(--sepia); font-style: italic; font-size: 14px; margin: 2px 0 10px }
+.chartbox { overflow-x: auto }
+.chartbox svg { display: block; width: 100%; min-width: 560px; height: auto }
+ol.route { list-style: none; margin: 0; padding: 0; counter-reset: none }
+ol.route li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 4px; cursor: pointer; border-radius: 2px }
+ol.route li:hover, ol.route li.sel { background: var(--paper-2) }
+ol.route .leg { display: block; padding: 0 0 0 40px; font-size: 13px; color: var(--sepia); font-style: italic; cursor: default; grid-template-columns: none }
+ol.route .leg:hover { background: none }
+ol.route .yr { font-variant-numeric: tabular-nums; color: var(--sepia); font-size: 14px }
+.mini { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--body); color: #f6efdf; border: 1px solid var(--ink) }
+footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--sepia); display: grid; gap: 6px; max-width: 110ch }
+footer p { margin: 0 }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
+.tip { position: fixed; z-index: 5; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--paper); font-size: 13px; line-height: 1.35; padding: 6px 9px; border-radius: 2px }
+.tip b { display: block; font-size: 14px }
+.street { cursor: pointer }
+.street .vis { transition: stroke-width .15s, opacity .15s }
+.street.hot .vis { stroke-width: 6; opacity: 1 }
+.domes-sec { margin-top: 36px }
+.domes-sec .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap }
+.domes-sec h3 { font-family: var(--display); font-weight: 400; letter-spacing: .1em; font-size: 20px; margin: 0 }
+.domes-sec .lede { max-width: 72ch; margin: 6px 0 14px }
+.domes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 18px }
+.dome { border: 1px solid var(--paper-3); background: var(--paper); padding: 10px 12px 12px; display: grid; gap: 6px; align-content: start; min-width: 0 }
+.dome[data-id] { cursor: pointer }
+.dome[data-id]:hover, .dome.sel { border-color: var(--rule); background: var(--paper-2) }
+.dome.away { border-style: dashed }
+.dome svg { width: 100%; height: auto; display: block }
+.dome h4 { margin: 0; font-size: 16px; display: flex; gap: 8px; align-items: center }
+.dome .when { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums }
+.dome p { margin: 0; font-size: 14px }
+.dome .why { color: var(--sepia); font-style: italic }
+.domes-note { margin-top: 12px; font-size: 13px; color: var(--sepia); max-width: 90ch }
+#map.thread .site:not(.in-thread) { opacity: .22 }
+#map.thread [data-layer="streets"] { opacity: .3 }
+.streets-sec { margin-top: 36px }
+.streets-sec h3 { font-family: var(--display); font-weight: 400; letter-spacing: .1em; font-size: 20px; margin: 0 }
+.streets-sec .lede { max-width: 72ch; margin: 6px 0 14px }
+.eras { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 18px 28px }
+.era h4 { margin: 0 0 4px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; display: flex; gap: 8px; align-items: center }
+.era h4 i { width: 22px; height: 5px; border-radius: 2px; display: inline-block }
+.era ul { list-style: none; margin: 0; padding: 0 }
+.era li { padding: 3px 4px; cursor: pointer; border-radius: 2px; font-size: 14.5px }
+.era li:hover, .era li.hot { background: var(--paper-2) }
+.era li small { display: block; color: var(--sepia); font-style: italic; font-size: 12.5px }
+/* map interaction */
+.site { cursor: pointer; transition: opacity .35s }
+.site .icon { transition: opacity .35s, filter .35s }
+.site:hover .icon, .site.sel .icon { filter: drop-shadow(0 0 3px rgba(138,47,31,.55)) }
+.site .halo { opacity: 0; transition: opacity .2s }
+.site.sel .halo { opacity: 1 }
+.site.future .icon { opacity: .22; filter: grayscale(1) }
+.site.future .label { opacity: .35 }
+.site.future .dot { opacity: .4 }
+.older-mark { transition: opacity .35s, transform .35s }
+.older-mark.lit { opacity: 1 }
+.cdot { cursor: pointer }
+.cdot.future circle { opacity: .25 }
+.cdot.sel circle { stroke: var(--route); stroke-width: 2.4 }
+[data-layer].off { display: none }
+@media (prefers-reduced-motion: reduce) { .site, .site .icon, .older-mark { transition: none } }
+
+@media (max-width: 900px) {
+  .stage, .lower { grid-template-columns: minmax(0, 1fr) }
+  aside { position: static }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>How to Time Travel in Delhi</h1>
+    <p>Fifteen monuments founded over nine centuries all stand within about 13&nbsp;km of Raisina Hill. Drag the dial left to go back in time, or tap a monument for its story, dates and how far it is on foot.</p>
+  </header>
+
+  <section class="stage">
+    <div class="mapcard"><svg id="map" role="img" aria-label="Map of fifteen Delhi monuments around Raisina Hill"></svg></div>
+    <aside>
+      <div class="dial">
+        <div class="dial-head">
+          <div class="year" id="yearOut">1950 <small>CE</small></div>
+          <div class="btnrow">
+            <button id="play" type="button">Travel back</button>
+            <button id="reset" class="ghost" type="button">Today</button>
+          </div>
+        </div>
+        <input id="dial" type="range" min="0" max="1000" step="1" value="1000" aria-label="Year">
+        <div class="ticks" aria-hidden="true"><span style="left:0">1000 BCE</span><span style="left:20%;transform:none;padding-left:4px">1000 CE</span><span style="left:62.1%">1500</span><span style="left:100%">1950</span></div>
+        <p class="now" id="nowText"></p>
+        <p class="sr" id="announce" aria-live="polite"></p>
+      </div>
+      <article class="card" id="card"></article>
+      <div class="layers" aria-label="Map layers">
+        <label><input type="checkbox" id="l-drive" checked> Drive route</label>
+        <label><input type="checkbox" id="l-walk" checked> Walking stretches</label>
+        <label><input type="checkbox" id="l-rings" checked> 3&nbsp;km rings</label>
+        <label><input type="checkbox" id="l-river" checked> Yamuna</label>
+        <label><input type="checkbox" id="l-labels" checked> Labels</label>
+        <label><input type="checkbox" id="l-streets"> 1920s street names</label>
+        <label><input type="checkbox" id="l-thread"> Double-dome thread</label>
+      </div>
+    </aside>
+  </section>
+
+  <section class="lower">
+    <div>
+      <h3>How far you go, how far back you get</h3>
+      <p class="sub">Straight-line distance from Raisina against the year each site was founded. Time runs left to right, oldest first. The further south you go, the older Delhi gets: about 55 years per kilometre.</p>
+      <div class="chartbox"><svg id="chart" role="img" aria-label="Chart of distance from Raisina Hill against year built"></svg></div>
+    </div>
+    <div>
+      <h3>The suggested day</h3>
+      <p class="sub" id="routeSub"></p>
+      <ol class="route" id="route"></ol>
+    </div>
+  </section>
+
+  <section class="domes-sec" aria-labelledby="domes-h">
+    <div class="head">
+      <h3 id="domes-h">Three double domes, three traditions</h3>
+      <button type="button" class="ghost" id="threadBtn" aria-pressed="false">Show the thread on the map</button>
+    </div>
+    <p class="lede">A double dome is two shells, one inside the other. Three buildings on this map have one, and each came from a different tradition. Florence's cathedral dome is older than all three but belongs to a separate line, so it's shown here for comparison only.</p>
+    <div class="domes" id="domes"></div>
+    <p class="domes-note">Cutaways are schematic, not to scale: they show how the shells relate, not measured profiles. The construction of Rashtrapati Bhavan's inner dome isn't described in the sources checked. Sources: <a href="https://www.archnet.org/sites/1585" target="_blank" rel="noopener">Archnet (Sikandar Lodi's tomb)</a>, <a href="https://depts.washington.edu/silkroad/cities/india/delhi/humayun/humayun.html" target="_blank" rel="noopener">University of Washington Silk Road project (Humayun's Tomb)</a>, <a href="https://www.presidentofindia.gov.in/hi/node/1129" target="_blank" rel="noopener">President of India (central dome)</a>, <a href="https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh" target="_blank" rel="noopener">Dome of Soltaniyeh</a>.</p>
+  </section>
+
+  <section class="streets-sec" aria-labelledby="streets-h">
+    <h3 id="streets-h">The streets are a timeline too</h3>
+    <p class="lede">When New Delhi was laid out in the 1920s, many of its avenues were named after earlier rulers of India, from Ashoka to Aurangzeb, and the rest after viceroys and other Europeans who ruled parts of India. According to the historian Narayani Gupta, Percival Spear later wrote that he had been asked to suggest names from Indian history. Hover a name to find it on the map; where a ruler built something on the map, clicking takes you there.</p>
+    <div class="eras" id="eras"></div>
+  </section>
+
+  <footer>
+    <p>Dates checked 17 October 2026 against ASI, UNESCO, Delhi SRDC and cited Wikipedia sources. Where sources disagree (Humayun's Tomb's commissioning, Purana Qila's earliest layers), the map prints the more conservative date.</p>
+    <p>Positions use Wikipedia and OpenStreetMap coordinates on a local equirectangular projection centred on Raisina (north up). Rings are straight-line distance; one ring is about 40 minutes' walk at 4.5&nbsp;km/h. Road distances and times come from OpenStreetMap routing (FOSSGIS OSRM). Drive times assume empty roads; Delhi traffic usually makes them 2–3× longer.</p>
+    <p>Road and river data © OpenStreetMap contributors (ODbL).</p>
+  </footer>
+</div>
+
+<div class="tip" id="tip" hidden></div>
+<script>
+const D = /*__DATA__*/null;
+const NS = 'http://www.w3.org/2000/svg';
+const byId = Object.fromEntries(D.sites.map(s => [s.id, s]));
+const F = D.frame, K = F.k;
+const PAPER = '#efe6d2', INK = '#2a2118', SEPIA = '#5b4a36', RULE = '#6b5942', ROUTE = '#8a2f1f';
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+// No year zero: 1 BCE is followed by 1 CE. Negative values are years BCE, matching the chart labels.
+const bce = y => (y === 0 ? 1 : -y);
+const fmtYear = y => y <= 0 ? `${bce(y)}<small> BCE</small>` : `${y}<small> CE</small>`;
+const fmtYearTxt = y => y <= 0 ? `${bce(y)} BCE` : `${y}`;
+const walk = m => m >= 60 ? `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}` : `${m} min`;
+
+/* ---------------- map ---------------- */
+function drawMap() {
+  const svg = document.getElementById('map');
+  svg.setAttribute('viewBox', `${F.x0} ${F.y0} ${F.x1 - F.x0} ${F.y1 - F.y0}`);
+  let h = `<defs>
+    <clipPath id="mclip"><rect x="${F.x0}" y="${F.y0}" width="${F.x1 - F.x0}" height="${F.y1 - F.y0}"/></clipPath>
+    <filter id="plate" x="-0.04" y="-0.08" width="1.08" height="1.16"><feFlood flood-color="${PAPER}" flood-opacity="0.9"/><feComposite in="SourceGraphic" operator="over"/></filter>
+  </defs><g clip-path="url(#mclip)" font-family="Spectral, Georgia, serif">`;
+  h += `<rect x="${F.x0}" y="${F.y0}" width="${F.x1 - F.x0}" height="${F.y1 - F.y0}" fill="#e9dfc6"/>`;
+  for (let i = 5; i >= 1; i--) h += `<circle cx="${F.cx}" cy="${F.cy}" r="${i * 3 * K}" fill="${i % 2 ? '#e6dbbf' : '#ece3cc'}"/>`;
+  h += `<g data-layer="rings">`;
+  for (let i = 1; i <= 5; i++) h += `<circle cx="${F.cx}" cy="${F.cy}" r="${i * 3 * K}" fill="none" stroke="${RULE}" stroke-width="${i === 5 ? 2 : 1}" opacity=".8"/>`;
+  const rl = (x, y, t) => `<g font-size="10.5" fill="${INK}"><rect x="${x}" y="${y - 11}" width="${t.length * 5.6 + 8}" height="15" rx="2" fill="${PAPER}" opacity=".92"/><text x="${x + 4}" y="${y}">${t}</text></g>`;
+  h += rl(F.cx - 3 * K * 0.866 - 17, F.cy - 3 * K * 0.5 + 4, '3 km');
+  for (const i of [2, 3, 4]) { const r = i * 3 * K; h += rl(F.x0 + 4, F.cy + Math.sqrt(r * r - (F.cx - F.x0) ** 2) + 4, `${i * 3} km`); }
+  h += rl(600, 990, '15 km') + `</g>`;
+  h += `<g data-layer="river">`;
+  for (const line of D.river) {
+    const p = line.map(q => q.join(',')).join(' ');
+    h += `<polyline points="${p}" fill="none" stroke="#9fbcc0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/><polyline points="${p}" fill="none" stroke="#7fa3a8" stroke-width="1" opacity=".8"/>`;
+  }
+  h += `<text x="482" y="326" font-size="12" font-style="italic" letter-spacing="3" fill="#4f7479" transform="rotate(84 482 326)">YAMUNA</text></g>`;
+  h += `<g fill="${SEPIA}" opacity=".5" font-style="italic" font-size="11" letter-spacing="1.5" text-anchor="middle" data-layer="labels"><text x="130" y="131">SHAHJAHANABAD</text><text x="95" y="300">NEW DELHI</text><text x="540" y="560">NIZAMUDDIN</text><text x="150" y="975">MEHRAULI</text></g>`;
+  h += `<g data-layer="streets" class="off">`;
+  D.streets.forEach((st, i) => {
+    h += `<g class="street" data-i="${i}">`;
+    for (const l of st.lines) {
+      const p = l.map(q => q.join(',')).join(' ');
+      h += `<polyline class="vis" points="${p}" fill="none" stroke="${st.color}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/><polyline points="${p}" fill="none" stroke="transparent" stroke-width="12"/>`;
+    }
+    h += `</g>`;
+  });
+  h += `</g>`;
+  for (const k of ['drive1', 'drive2']) {
+    const p = D.routes[k].pts.map(q => q.join(',')).join(' ');
+    h += `<g data-layer="drive"><polyline points="${p}" fill="none" stroke="${PAPER}" stroke-width="5.5" stroke-linejoin="round" opacity=".9"/><polyline points="${p}" fill="none" stroke="${ROUTE}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/></g>`;
+  }
+  for (const k of ['walk1', 'walk2']) {
+    const p = D.routes[k].pts.map(q => q.join(',')).join(' ');
+    h += `<g data-layer="walk"><polyline points="${p}" fill="none" stroke="${PAPER}" stroke-width="5" stroke-linejoin="round"/><polyline points="${p}" fill="none" stroke="${ROUTE}" stroke-width="2.6" stroke-dasharray="0.1 4.4" stroke-linecap="round"/></g>`;
+  }
+  h += `</g>`;
+  // sites, north first so southern icons overlap correctly
+  const order = [...D.sites].sort((a, b) => a.y - b.y);
+  for (const s of order) {
+    const [dx, dy] = s.off, ix = s.x + dx, iy = s.y + dy;
+    const [anchor, lx, ly] = s.lab, tx = ix + lx, ty = iy + ly;
+    const nm = anchor === 'end' ? `${s.name} · ${s.n}` : `${s.n} · ${s.name}`;
+    const halo = `paint-order="stroke" stroke="${PAPER}" stroke-width="3.5" stroke-linejoin="round"`;
+    h += `<g class="site" data-id="${s.id}" tabindex="0" role="button" aria-label="${esc(s.name)}, ${esc(s.built)}">`;
+    h += `<circle class="halo" cx="${ix}" cy="${iy - 18}" r="34" fill="${s.color}" opacity="0" fill-opacity=".14" stroke="${s.color}" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+    if (dx || dy) h += `<line x1="${s.x}" y1="${s.y}" x2="${ix}" y2="${iy}" stroke="${INK}" stroke-width=".8" stroke-dasharray="2 2"/>`;
+    h += `<g class="icon"><ellipse cx="${ix}" cy="${iy + 0.5}" rx="20" ry="3.2" fill="${INK}" opacity=".18"/>`;
+    h += `<g transform="translate(${ix},${iy})" fill="${s.color}" stroke="${INK}" stroke-width=".8" stroke-linejoin="round">${s.icon}</g></g>`;
+    h += `<circle class="dot" cx="${s.x}" cy="${s.y}" r="2.6" fill="${INK}" stroke="${PAPER}" stroke-width="1"/>`;
+    h += `<g class="label" data-layer="labels" filter="url(#plate)" font-family="Spectral, Georgia, serif">`;
+    h += `<text x="${tx}" y="${ty}" text-anchor="${anchor}" font-size="12.5" font-weight="700" fill="${INK}" ${halo}>${esc(nm)}</text>`;
+    h += `<text x="${tx}" y="${ty + 13}" text-anchor="${anchor}" font-size="11" font-style="italic" fill="${s.color}" ${halo}>${esc(s.built)}</text></g>`;
+    h += `<rect x="${ix - 30}" y="${iy - 50}" width="60" height="54" fill="transparent"/></g>`;
+  }
+  // older objects: small indigo diamonds beside the host site's true spot
+  for (const s of D.sites.filter(s => s.older)) {
+    h += `<path class="older-mark" data-host="${s.id}" d="M${s.x + 7},${s.y - 5} l5,5 l-5,5 l-5,-5 Z" fill="${D.ancient}" stroke="${PAPER}" stroke-width="1" opacity=".35"/>`;
+  }
+  // double-dome thread: links the three sites in date order
+  {
+    const ids = ['lodi', 'humayun', 'rb'], P = ids.map(id => { const s = byId[id]; return [s.x + s.off[0], s.y + s.off[1] - 22]; });
+    h += `<g data-layer="thread" class="off" pointer-events="none"><defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="${INK}"/></marker></defs>`;
+    for (let i = 0; i < 2; i++) {
+      const [a, b] = [P[i], P[i + 1]], mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - 40;
+      h += `<path d="M${a[0]},${a[1] - 30} Q${mx},${my - 30} ${b[0]},${b[1] - 34}" fill="none" stroke="${INK}" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arr)"/>`;
+    }
+    ids.forEach((id, i) => {
+      const yr = { lodi: '1517', humayun: '1565', rb: '1912' }[id], [x, y] = P[i];
+      h += `<g transform="translate(${x},${y + 38})"><rect x="-19" y="-10" width="38" height="15" rx="7" fill="${INK}"/><text y="1.5" font-size="10" font-weight="700" text-anchor="middle" fill="${PAPER}">${yr}</text></g>`;
+    });
+    h += `</g>`;
+  }
+  h += `<rect x="${F.x0}" y="${F.y0}" width="${F.x1 - F.x0}" height="${F.y1 - F.y0}" fill="none" stroke="${RULE}" stroke-width="1.2"/>`;
+  h += `<g transform="translate(622,150)"><polygon points="0,-24 6,8 0,1 -6,8" fill="${INK}"/><text y="-29" font-size="13" font-weight="700" fill="${INK}" text-anchor="middle">N</text></g>`;
+  h += `<g transform="translate(470,985)"><rect width="${K}" height="7" fill="${INK}"/><rect x="${K}" width="${K}" height="7" fill="${PAPER}" stroke="${INK}" stroke-width=".8"/><g font-size="10" fill="${INK}" text-anchor="middle"><text y="19">0</text><text x="${K}" y="19">1</text><text x="${2 * K}" y="19">2 km</text></g></g>`;
+  svg.innerHTML = h;
+  svg.querySelectorAll('.street').forEach(g => {
+    const st = D.streets[+g.dataset.i];
+    g.addEventListener('mousemove', e => showTip(e, st));
+    g.addEventListener('mouseleave', () => { hideTip(); hotStreet(null); });
+    g.addEventListener('mouseenter', () => hotStreet(+g.dataset.i));
+    g.addEventListener('click', e => { showTip(e, st); if (st.link) select(st.link); });
+  });
+  svg.querySelectorAll('.site').forEach(g => {
+    g.addEventListener('click', () => select(g.dataset.id));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(g.dataset.id); } });
+  });
+}
+
+/* ---------------- chart ---------------- */
+// Time runs left to right (oldest left, latest right); distance from Raisina runs up the y axis.
+const XL = 70, XB0 = 170, XM = 182, XR = 780, YT = 40, YB = 370;
+const tx = yr => yr >= 1000 ? XM + (yr - 1000) / 950 * (XR - XM) : XL + (yr + 1000) / 1500 * (XB0 - XL);
+const ty = km => YB - km / 14 * (YB - YT);
+function drawChart() {
+  const svg = document.getElementById('chart');
+  svg.setAttribute('viewBox', '0 0 850 440');
+  let h = `<g font-family="Spectral, Georgia, serif">`;
+  const cents = { 11: '#2c5878', 12: '#2f7480', 13: '#2f7480', 14: '#3d8a6e', 15: '#7d9a3c', 16: '#c49a1e', 17: '#d07a2a', 18: '#b8432e', 20: '#7a2e4f' };
+  for (let c = 11; c <= 20; c++) {
+    const x0 = tx((c - 1) * 100), x1 = Math.min(tx(c * 100), XR), col = cents[c];
+    h += `<rect x="${x0}" y="${YT}" width="${x1 - x0}" height="${YB - YT}" fill="${col || PAPER}" opacity="${col ? .13 : 0}"/>`;
+    if (c > 11) h += `<line x1="${x0}" y1="${YT}" x2="${x0}" y2="${YB}" stroke="${RULE}" stroke-width=".5" opacity=".45"/><text x="${x0}" y="${YB + 31}" font-size="9" text-anchor="middle" fill="${SEPIA}">${(c - 1) * 100}</text>`;
+    h += `<text x="${(x0 + x1) / 2}" y="${YB + 16}" font-size="11" text-anchor="middle" font-weight="${col ? 700 : 400}" fill="${col || SEPIA}">${c}th c.</text>`;
+  }
+  // compressed band for the ancient objects, on the far left
+  h += `<rect x="${XL}" y="${YT}" width="${XB0 - XL}" height="${YB - YT}" fill="${D.ancient}" opacity=".1"/>`;
+  for (const yr of [-500, 1, 500]) h += `<line x1="${tx(yr)}" y1="${YT}" x2="${tx(yr)}" y2="${YB}" stroke="${RULE}" stroke-width=".5" opacity=".45"/>`;
+  h += `<text x="${XL}" y="${YB + 16}" font-size="9.5" fill="${D.ancient}">1000 BCE</text><text x="${tx(1)}" y="${YB + 31}" font-size="9.5" text-anchor="middle" fill="${D.ancient}">1 CE</text>`;
+  h += `<text x="${(XL + XB0) / 2}" y="${YT - 8}" font-size="9" font-style="italic" text-anchor="middle" fill="${D.ancient}">compressed</text>`;
+  h += `<rect x="${XB0}" y="${YT + 1}" width="${XM - XB0}" height="${YB - YT - 2}" fill="${PAPER}"/>`;
+  h += `<path d="M${XB0 - 2},${YB + 7} l4,-14 M${XM - 2},${YB + 7} l4,-14" stroke="${INK}"/>`;
+  h += `<rect x="${XL}" y="${YT}" width="${XR - XL}" height="${YB - YT}" fill="none" stroke="${RULE}" stroke-width=".9"/>`;
+  // distance (left) and walking time (right)
+  for (let km = 0; km <= 14; km += 2) h += `<line x1="${XL - 4}" y1="${ty(km)}" x2="${XL}" y2="${ty(km)}" stroke="${INK}" stroke-width=".8"/><text x="${XL - 8}" y="${ty(km) + 3.5}" font-size="10.5" text-anchor="end" fill="${INK}">${km}</text>`;
+  for (let km = 3; km <= 12; km += 3) h += `<line x1="${XL}" y1="${ty(km)}" x2="${XR}" y2="${ty(km)}" stroke="${RULE}" stroke-width=".6" opacity=".35" stroke-dasharray="3 3"/>`;
+  for (const hr of [0, 1, 2, 3]) h += `<line x1="${XR}" y1="${ty(hr * 4.5)}" x2="${XR + 4}" y2="${ty(hr * 4.5)}" stroke="${INK}" stroke-width=".8"/><text x="${XR + 7}" y="${ty(hr * 4.5) + 3.5}" font-size="10" fill="${INK}">${hr} h walk</text>`;
+  h += `<text transform="translate(24 ${(YT + YB) / 2}) rotate(-90)" font-size="11" text-anchor="middle" font-style="italic" fill="${SEPIA}">km from Raisina Hill, straight line</text>`;
+  h += `<text x="${(XM + XR) / 2}" y="${YB + 52}" font-size="11" text-anchor="middle" font-style="italic" fill="${SEPIA}">year founded: earliest on the left, latest on the right</text>`;
+  // least-squares trend (year on km), drawn as km against year
+  const P = D.sites.map(s => [s.km, s.year]), n = P.length;
+  const mx = P.reduce((a, p) => a + p[0], 0) / n, my = P.reduce((a, p) => a + p[1], 0) / n;
+  const sl = P.reduce((a, p) => a + (p[0] - mx) * (p[1] - my), 0) / P.reduce((a, p) => a + (p[0] - mx) ** 2, 0), ic = my - sl * mx;
+  h += `<line x1="${tx(ic + sl * 13.5)}" y1="${ty(13.5)}" x2="${tx(ic)}" y2="${ty(0)}" stroke="${INK}" stroke-dasharray="6 4" opacity=".55"/>`;
+  h += `<text x="${tx(1600)}" y="${ty(12.6)}" font-size="11" font-style="italic" fill="${INK}">- - -  every km out ≈ ${Math.round(-sl)} years back</text>`;
+  // older objects: dashed lines run left to when they were made
+  for (const s of D.sites.filter(s => s.older)) {
+    const [name, yr, when] = s.older, y = ty(s.km), span = s.id === 'purana';
+    h += `<line x1="${tx(s.year)}" y1="${y}" x2="${span ? tx(0) : tx(yr)}" y2="${y}" stroke="${D.ancient}" stroke-width="1.1" stroke-dasharray="3 2.5"/>`;
+    h += span ? `<rect x="${tx(-1000)}" y="${y - 3.5}" width="${tx(0) - tx(-1000)}" height="7" rx="3" fill="${D.ancient}" opacity=".45"/>`
+              : `<path d="M${tx(yr) - 6},${y} l6,-6 l6,6 l-6,6 Z" fill="${D.ancient}" stroke="${PAPER}"/>`;
+    const label = s.id === 'qutb' ? `${name} · ${when.replace(' (Gupta)', '')}` : `${name} · ${when}`;
+    const lx = span ? tx(-1000) + 2 : tx(yr) + 9, ly = span ? y + 15 : y - 7;
+    h += `<text x="${lx}" y="${ly}" font-size="10.5" fill="${D.ancient}" paint-order="stroke" stroke="${PAPER}" stroke-width="3">${esc(label)}</text>`;
+  }
+  h += `<line id="nowLine" x1="${XR}" x2="${XR}" y1="${YT}" y2="${YB}" stroke="${ROUTE}" stroke-width="1.6"/>`;
+  for (const s of D.sites) {
+    const x = tx(s.year), y = ty(s.km);
+    h += `<g class="cdot" data-id="${s.id}" tabindex="0" role="button" aria-label="${esc(s.name)}"><circle cx="${x}" cy="${y}" r="9" fill="${s.color}" stroke="${INK}" stroke-width=".9"/><text x="${x}" y="${y + 3.8}" font-size="${s.n < 10 ? 10 : 9}" font-weight="700" text-anchor="middle" fill="#f6efdf" pointer-events="none">${s.n}</text></g>`;
+  }
+  svg.innerHTML = h + '</g>';
+  svg.querySelectorAll('.cdot').forEach(g => {
+    g.addEventListener('click', () => select(g.dataset.id));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(g.dataset.id); } });
+  });
+}
+
+/* ---------------- itinerary ---------------- */
+function drawRoute() {
+  const R = D.routes, seq = [];
+  const add = (k, mode) => R[k].ids.forEach((id, i) => {
+    if (i === 0) { if (!seq.length) seq.push({ id }); return; }
+    seq.push({ leg: { mode, ...R[k].legs[i - 1] } }, { id });
+  });
+  add('drive1', 'Drive'); add('walk1', 'Walk'); add('drive2', 'Drive'); add('walk2', 'Walk');
+  const ol = document.getElementById('route');
+  ol.innerHTML = seq.map(it => {
+    if (it.leg) return `<li class="leg">${it.leg.mode} ${it.leg.km.toFixed(1)} km · ${it.leg.mode === 'Walk' ? '~' + it.leg.min + ' min' : it.leg.min + ' min free-flow'}</li>`;
+    const s = byId[it.id];
+    return `<li tabindex="0" data-id="${s.id}"><span class="mini" style="background:${s.color}">${s.n}</span><span>${esc(s.name)}</span><span class="yr">${esc(s.built)}</span></li>`;
+  }).join('');
+  ol.querySelectorAll('li[data-id]').forEach(li => {
+    li.addEventListener('click', () => select(li.dataset.id, true));
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(li.dataset.id, true); } });
+  });
+  const dk = R.drive1.km + R.drive2.km, wk = R.walk1.km + R.walk2.km, wm = R.walk1.min + R.walk2.min;
+  document.getElementById('routeSub').textContent = `Start in 1912, end in about 1060. About ${Math.round(dk)} km of driving (realistically 3+ hours in traffic) and ${wk.toFixed(1)} km on foot (~${wm} min), all on real OpenStreetMap roads.`;
+}
+
+/* ---------------- selection & card ---------------- */
+let selected = null;
+function select(id, scroll) {
+  selected = id;
+  const s = byId[id];
+  document.querySelectorAll('.site,.cdot,ol.route li[data-id]').forEach(el => el.classList.toggle('sel', el.dataset.id === id));
+  const card = document.getElementById('card');
+  card.style.setProperty('--card', s.color);
+  const r = s.road;
+  const stats = s.id === 'rb'
+    ? `<div><dt>Role</dt><dd>Map centre</dd></div><div><dt>Straight</dt><dd>0 km</dd></div><div><dt>Rings</dt><dd>every 3 km</dd></div><div><dt>On foot</dt><dd>40 min/ring</dd></div>`
+    : `<div><dt>Straight</dt><dd>${s.km.toFixed(1)} km</dd></div><div><dt>By road</dt><dd>${r.car.km.toFixed(1)} km</dd></div><div><dt>Walk</dt><dd>${walk(r.foot.min)}</dd></div><div><dt>Drive*</dt><dd>${r.car.min} min</dd></div>`;
+  card.innerHTML = `<h2><span class="badge" style="background:${s.color}">${s.n}</span>${esc(s.name)}</h2>
+    <p class="built" style="color:${s.color}">${esc(s.built)} · ${esc(s.century)}</p>
+    <p class="who">${esc(s.who)}</p>
+    <p class="story">${esc(s.story)}</p>
+    ${s.older ? `<p class="older"><strong>Older than the building:</strong> ${esc(s.older[0])}, ${esc(s.older[2])}, ${esc(s.older[3]).replace(/\.$/, '')}.</p>` : ''}
+    <dl class="stats">${stats}</dl>
+    <p style="font-size:13px;color:var(--sepia);margin:8px 0 0">${s.id === 'rb' ? 'You start here.' : 'From Raisina Hill. *Free-flow drive time; expect 2–3× in traffic.'} <a href="${s.src}" target="_blank" rel="noopener">Source</a></p>`;
+  if (scroll && matchMedia('(max-width: 900px)').matches) document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ---------------- time dial ---------------- */
+// slider 0..800 = 1950 → 1000 CE (linear); 800..1000 = 1000 CE → 1000 BCE (compressed)
+// The slider runs earliest (left) to latest (right); back() measures distance into the past from 1950.
+const back = () => 1000 - +dial.value, setBack = b => { dial.value = 1000 - b; };
+const toYear = v => v <= 800 ? Math.round(1950 - v / 800 * 950) : Math.round(1000 - (v - 800) / 200 * 2000);
+const dial = document.getElementById('dial');
+function setTime() {
+  const y = toYear(back());
+  document.getElementById('yearOut').innerHTML = fmtYear(y <= 0 ? y : y);
+  dial.setAttribute('aria-valuetext', fmtYearTxt(y));
+  const standing = D.sites.filter(s => s.year <= y);
+  document.querySelectorAll('.site,.cdot').forEach(el => el.classList.toggle('future', byId[el.dataset.id].year > y));
+  document.querySelectorAll('.older-mark').forEach(el => {
+    const o = byId[el.dataset.host].older;
+    el.classList.toggle('lit', y < byId[el.dataset.host].year && o[1] <= y);
+  });
+  const nl = document.getElementById('nowLine'); const xx = tx(Math.max(-1000, y)); nl.setAttribute('x1', xx); nl.setAttribute('x2', xx);
+  let t;
+  if (standing.length === D.sites.length) t = 'All fifteen monuments are built. Drag the dial left, or press Travel back, to watch them disappear.';
+  else if (standing.length) {
+    const last = standing.reduce((a, b) => (b.year > a.year ? b : a));
+    t = `${standing.length} of 15 built by ${fmtYearTxt(y)}. Newest: ${last.name} (${last.built}).`;
+  } else t = `None of the fifteen is built yet in ${fmtYearTxt(y)}.`;
+  const olds = D.sites.filter(s => s.older && s.older[1] <= y && s.year > y).map(s => s.older[0]);
+  if (olds.length && standing.length < D.sites.length) {
+    const pillars = olds.filter(o => /Pillar/.test(o)), sherds = olds.filter(o => !/Pillar/.test(o));
+    if (pillars.length) t += ` Already made, elsewhere: ${pillars.join(' and ')} (moved to Delhi later).`;
+    if (sherds.length) t += ` Already in the ground at Purana Qila: ${sherds.join(', ')}.`;
+  }
+  document.getElementById('nowText').textContent = t;
+}
+dial.addEventListener('input', setTime);
+const announce = () => { document.getElementById('announce').textContent = document.getElementById('nowText').textContent; };
+dial.addEventListener('change', announce);
+let anim = null;
+document.getElementById('play').addEventListener('click', () => {
+  if (anim) { cancelAnimationFrame(anim); anim = null; document.getElementById('play').textContent = 'Travel back'; return; }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setBack(1000); setTime(); announce(); return; }
+  if (back() >= 1000) setBack(0);
+  const start = performance.now(), v0 = back();
+  document.getElementById('play').textContent = 'Pause';
+  const step = now => {
+    const v = Math.min(1000, v0 + (now - start) / 12);
+    setBack(v); setTime();
+    if (v < 1000) anim = requestAnimationFrame(step); else { anim = null; document.getElementById('play').textContent = 'Travel back'; announce(); }
+  };
+  anim = requestAnimationFrame(step);
+});
+document.getElementById('reset').addEventListener('click', () => { if (anim) { cancelAnimationFrame(anim); anim = null; document.getElementById('play').textContent = 'Travel back'; } setBack(0); setTime(); });
+
+/* ---------------- streets ---------------- */
+const tip = document.getElementById('tip');
+function showTip(e, st) {
+  tip.innerHTML = `<b>${esc(st.old)}</b>${esc(st.who)}${st.now ? `<br><i>Now: ${esc(st.now)}</i>` : ''}`;
+  tip.hidden = false;
+  const x = Math.min(e.clientX + 14, innerWidth - 270), y = e.clientY + 16;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+function hideTip() { tip.hidden = true; }
+function hotStreet(i) {
+  document.querySelectorAll('.street').forEach(g => g.classList.toggle('hot', +g.dataset.i === i));
+  document.querySelectorAll('.era li').forEach(li => li.classList.toggle('hot', +li.dataset.i === i));
+}
+function setStreets(on) {
+  document.getElementById('l-streets').checked = on;
+  document.querySelectorAll('#map [data-layer="streets"]').forEach(el => el.classList.toggle('off', !on));
+}
+function drawStreetList() {
+  const order = ['Ancient', 'Rajput', 'Delhi Sultanate', 'Sur & Mughal', 'Mughal', 'Late Mughal', 'Uncertain', 'British & European'];
+  const box = document.getElementById('eras');
+  box.innerHTML = order.map(era => {
+    const items = D.streets.map((s, i) => [s, i]).filter(([s]) => s.era === era);
+    if (!items.length) return '';
+    return `<div class="era"><h4><i style="background:${items[0][0].color}"></i>${era}</h4><ul>${items.map(([s, i]) =>
+      `<li tabindex="0" data-i="${i}">${esc(s.old)}<small>${esc(s.who)}${s.now ? ' · now ' + esc(s.now) : ''}</small></li>`).join('')}</ul></div>`;
+  }).join('');
+  box.querySelectorAll('li').forEach(li => {
+    const i = +li.dataset.i, st = D.streets[i];
+    li.addEventListener('mouseenter', () => { setStreets(true); hotStreet(i); });
+    li.addEventListener('mouseleave', () => hotStreet(null));
+    li.addEventListener('focus', () => { setStreets(true); hotStreet(i); });
+    const go = () => { setStreets(true); hotStreet(i); if (st.link) select(st.link); document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    li.addEventListener('click', go);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+}
+
+/* ---------------- double domes ---------------- */
+// Schematic cutaways (viewBox 0 0 200 210, ground at y=200). Outer shell in the site colour, inner shell in ink.
+function cutaway(kind, col) {
+  const hatch = `<pattern id="h-${kind}" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="${RULE}" stroke-width=".8" opacity=".45"/></pattern>`;
+  const wall = (x0, x1, yTop) => `<rect x="${x0}" y="${yTop}" width="12" height="${200 - yTop}" fill="url(#h-${kind})" stroke="${INK}" stroke-width="1"/><rect x="${x1 - 12}" y="${yTop}" width="12" height="${200 - yTop}" fill="url(#h-${kind})" stroke="${INK}" stroke-width="1"/>`;
+  const lab = (x, y, t, anchor = 'start') => `<text x="${x}" y="${y}" font-size="9.5" fill="${SEPIA}" text-anchor="${anchor}" font-style="italic">${t}</text>`;
+  const outer = d => `<path d="${d}" fill="none" stroke="${col}" stroke-width="5" stroke-linejoin="round"/>`;
+  const inner = d => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="3"/>`;
+  const gap = d => `<path d="${d}" fill="${col}" opacity=".13"/>`;
+  let g = '';
+  if (kind === 'lodi') {
+    g += gap('M48,120 A52,52 0 0 1 152,120 L146,120 A46,44 0 0 0 54,120 Z');
+    g += wall(42, 158, 120) + outer('M48,120 A52,52 0 0 1 152,120') + inner('M54,120 A46,44 0 0 1 146,120');
+    g += `<line x1="100" y1="68" x2="100" y2="58" stroke="${INK}" stroke-width="1.5"/>`;
+    g += lab(158, 82, 'outer') + lab(100, 110, 'inner', 'middle') + lab(100, 160, 'tomb chamber', 'middle');
+  } else if (kind === 'humayun') {
+    g += gap('M62,96 C50,60 78,30 100,18 C122,30 150,60 138,96 Z');
+    g += wall(30, 170, 132) + `<rect x="58" y="96" width="10" height="36" fill="url(#h-${kind})" stroke="${INK}"/><rect x="132" y="96" width="10" height="36" fill="url(#h-${kind})" stroke="${INK}"/>`;
+    g += outer('M62,96 C50,60 78,30 100,18 C122,30 150,60 138,96');
+    g += inner('M68,132 A32,28 0 0 1 132,132') + `<line x1="30" y1="132" x2="58" y2="132" stroke="${INK}" stroke-width="1.4"/><line x1="142" y1="132" x2="170" y2="132" stroke="${INK}" stroke-width="1.4"/>`;
+    g += `<line x1="100" y1="18" x2="100" y2="6" stroke="${INK}" stroke-width="1.5"/>`;
+    g += lab(150, 52, 'tall outer') + lab(100, 80, 'big gap', 'middle') + lab(100, 127, 'inner', 'middle') + lab(100, 182, 'burial hall', 'middle');
+  } else if (kind === 'rb') {
+    g += gap('M55,118 A45,44 0 0 1 145,118 Z');
+    g += wall(30, 170, 140) + `<rect x="50" y="118" width="10" height="22" fill="url(#h-${kind})" stroke="${INK}"/><rect x="140" y="118" width="10" height="22" fill="url(#h-${kind})" stroke="${INK}"/>`;
+    g += outer('M55,118 A45,44 0 0 1 145,118') + `<rect x="96" y="68" width="8" height="8" fill="${col}" stroke="${INK}"/>`;
+    g += inner('M60,140 A40,30 0 0 1 140,140') + `<line x1="30" y1="140" x2="50" y2="140" stroke="${INK}" stroke-width="1.4"/><line x1="150" y1="140" x2="170" y2="140" stroke="${INK}" stroke-width="1.4"/>`;
+    g += lab(150, 84, 'copper outer') + lab(100, 135, 'inner', 'middle') + lab(100, 175, 'Durbar Hall', 'middle');
+  } else { // Florence: two pointed shells, stairs between
+    g += gap('M40,120 Q46,50 100,26 Q154,50 160,120 L150,120 Q144,62 100,44 Q56,62 50,120 Z');
+    g += wall(28, 172, 120);
+    g += `<path d="M40,120 Q46,50 100,26 Q154,50 160,120" fill="none" stroke="${col}" stroke-width="2.5"/><path d="M50,120 Q56,62 100,44 Q144,62 150,120" fill="none" stroke="${INK}" stroke-width="7"/>`;
+    g += `<rect x="94" y="10" width="12" height="16" fill="${col}" stroke="${INK}"/>`;
+    g += lab(164, 70, 'thin outer') + lab(100, 100, 'thick inner', 'middle') + lab(100, 170, 'octagonal drum', 'middle');
+  }
+  g += `<line x1="10" y1="200" x2="190" y2="200" stroke="${INK}" stroke-width="1.2"/>`;
+  return `<svg viewBox="0 0 200 210" role="img" aria-label="Schematic cutaway of the ${kind} dome"><defs>${hatch}</defs>${g}</svg>`;
+}
+const DOMES = [
+  { id: 'lodi', name: 'Sikandar Lodi’s tomb', when: '1517–18 · Lodi Gardens', line: 'Persian, early in India',
+    text: 'Often cited as India’s first double dome. Some historians call it only a first step, and an earlier tomb in Srinagar (c.1465) has also been proposed.',
+    why: 'Inner and outer shells sit close together.' },
+  { id: 'humayun', name: 'Humayun’s Tomb', when: '1565–72', line: 'Persian–Timurid, mature',
+    text: 'The first fully developed Persian-style double dome in India. Its architect, Mirak Mirza Ghiyas, had worked in Herat and Bukhara.',
+    why: 'Tall outer shell for the skyline; low inner dome so the hall below stays in proportion.' },
+  { id: 'rb', name: 'Rashtrapati Bhavan', when: '1912–29', line: 'European classical, Sanchi-shaped',
+    text: 'The official description has a lower dome beneath the copper-clad main dome, which rises about 55 m above the forecourt. The outer form is said to draw on the Sanchi stupa.',
+    why: 'A grand outer silhouette, and a separate ceiling for Durbar Hall.' },
+  { id: null, kind: 'florence', name: 'Florence Cathedral', when: '1420–36 · for comparison', line: 'Italian Renaissance, separate line', color: '#6b5942',
+    text: 'Brunelleschi’s dome, built more than a century before Humayun’s Tomb. Some scholars argue Persian domes such as Soltaniyeh influenced it; that is debated.',
+    why: 'The double shell was already in the 1367 design. Brunelleschi’s breakthrough was building it without timber centring: herringbone brickwork, a pointed profile and new hoists. Visitors climb between the shells.' },
+];
+function drawDomes() {
+  const box = document.getElementById('domes');
+  box.innerHTML = DOMES.map(d => {
+    const s = d.id ? byId[d.id] : null, col = s ? s.color : d.color;
+    return `<article class="dome${s ? '' : ' away'}" ${s ? `data-id="${s.id}" tabindex="0" role="button" aria-label="Show ${esc(d.name)} on the map"` : ''}>
+      ${cutaway(d.kind || d.id, col)}
+      <h4>${s ? `<span class="mini" style="background:${col}">${s.n}</span>` : ''}${esc(d.name)}</h4>
+      <span class="when" style="color:${col}">${esc(d.when)}</span>
+      <p><strong>${esc(d.line)}.</strong> ${esc(d.text)}</p>
+      <p class="why">${esc(d.why)}</p></article>`;
+  }).join('');
+  box.querySelectorAll('.dome[data-id]').forEach(el => {
+    const go = () => { setThread(true); select(el.dataset.id); document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    el.addEventListener('click', go);
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+}
+function setThread(on) {
+  const map = document.getElementById('map');
+  map.classList.toggle('thread', on);
+  map.querySelectorAll('[data-layer="thread"]').forEach(el => el.classList.toggle('off', !on));
+  map.querySelectorAll('.site').forEach(g => g.classList.toggle('in-thread', ['lodi', 'humayun', 'rb'].includes(g.dataset.id)));
+  document.getElementById('l-thread').checked = on;
+  const b = document.getElementById('threadBtn');
+  b.setAttribute('aria-pressed', on); b.textContent = on ? 'Hide the thread' : 'Show the thread on the map';
+}
+document.getElementById('threadBtn').addEventListener('click', () => {
+  const on = !document.getElementById('map').classList.contains('thread');
+  setThread(on); if (on) document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+document.getElementById('l-thread').addEventListener('change', e => setThread(e.target.checked));
+// keep dome cards in sync with the map selection
+const _select = select;
+select = (id, scroll) => { _select(id, scroll); document.querySelectorAll('.dome[data-id]').forEach(el => el.classList.toggle('sel', el.dataset.id === id)); };
+
+/* ---------------- layers ---------------- */
+for (const k of ['drive', 'walk', 'rings', 'river', 'labels', 'streets']) {
+  document.getElementById('l-' + k).addEventListener('change', e => {
+    document.querySelectorAll(`#map [data-layer="${k}"]`).forEach(el => el.classList.toggle('off', !e.target.checked));
+  });
+}
+
+drawMap(); drawChart(); drawRoute(); drawStreetList(); drawDomes(); select('rb'); setTime();
+</script>

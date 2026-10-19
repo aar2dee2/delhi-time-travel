@@ -1,0 +1,38 @@
+{
+ "lodi": {
+  "file": "Tomb of Sikandar Lodi in Lodi Garden 09.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tomb_of_Sikandar_Lodi_in_Lodi_Garden_09.jpg",
+  "lic": "CC BY-SA 4.0",
+  "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "artist": "Pinakpani",
+  "w": 4128,
+  "h": 3096
+ },
+ "humayun": {
+  "file": "Humayun's Tomb Front Mighty.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Humayun%27s_Tomb_Front_Mighty.jpg",
+  "lic": "CC BY-SA 4.0",
+  "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "artist": "Harsh7284",
+  "w": 5873,
+  "h": 3965
+ },
+ "rb": {
+  "file": "Rashtrapati Bhavan in New Delhi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Rashtrapati_Bhavan_in_New_Delhi.jpg",
+  "lic": "CC0",
+  "lic_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "artist": "Baap8969",
+  "w": 4080,
+  "h": 3072
+ },
+ "florence": {
+  "file": "Cupola del Brunelleschi - panoramio.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Cupola_del_Brunelleschi_-_panoramio.jpg",
+  "lic": "CC BY 3.0",
+  "lic_url": "https://creativecommons.org/licenses/by/3.0",
+  "artist": "Angela Stefanoni",
+  "w": 3240,
+  "h": 4320
+ }
+}

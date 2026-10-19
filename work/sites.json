@@ -1,0 +1,17 @@
+[
+ {"id":"rb","name":"Rashtrapati Bhavan","lat":28.6143478,"lon":77.19943},
+ {"id":"lalkot","name":"Lal Kot","lat":28.5276529,"lon":77.1813592},
+ {"id":"qutb","name":"Qutb Minar","lat":28.5244754,"lon":77.1855206},
+ {"id":"siri","name":"Siri","lat":28.5521464,"lon":77.2246983},
+ {"id":"tughlaq","name":"Tughlaqabad","lat":28.510917,"lon":77.2623537},
+ {"id":"jahan","name":"Jahanpanah (Bijay Mandal)","lat":28.5409021,"lon":77.2060942},
+ {"id":"kotla","name":"Feroz Shah Kotla","lat":28.6349159,"lon":77.2433053},
+ {"id":"lodi","name":"Lodi Gardens","lat":28.5930959,"lon":77.2196794},
+ {"id":"purana","name":"Purana Qila","lat":28.6095744,"lon":77.2437371},
+ {"id":"humayun","name":"Humayun's Tomb","lat":28.5932848,"lon":77.2507492},
+ {"id":"redfort","name":"Red Fort","lat":28.6561592,"lon":77.2410203},
+ {"id":"jama","name":"Jama Masjid","lat":28.6507,"lon":77.2334},
+ {"id":"jantar","name":"Jantar Mantar","lat":28.6271,"lon":77.2164},
+ {"id":"safdar","name":"Safdarjung's Tomb","lat":28.5894156,"lon":77.2106219},
+ {"id":"sisganj","name":"Sis Ganj Sahib","lat":28.6559878,"lon":77.2325614}
+]

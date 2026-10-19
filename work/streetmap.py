@@ -96,6 +96,12 @@ def make_streetmap():
     lines = {i: chain(ls) for i, ls in lines.items()}
     colour = SD.colour
     pstr = lambda l: ' '.join(f'{x:.1f},{y:.1f}' for x, y in l)
+    # the suggested route from the main map: a soft band under the coloured roads, a thin line over them
+    ROUTE = '#8a2f1f'
+    route = {k: [P(lat, lon) for lon, lat in B.R[k]['geom']] for k in ('drive1', 'drive2', 'walk1', 'walk2')}
+    o.append(f'<g class="sroute" pointer-events="none" fill="none" stroke="{ROUTE}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity=".3">')
+    for k, l in route.items(): o.append(f'<polyline points="{pstr(l)}"/>')
+    o.append('</g>')
     o.append(f'<g fill="none" stroke="{PAPER}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">')
     for ls in lines.values():
         for l in ls: o.append(f'<polyline points="{pstr(l)}"/>')
@@ -108,6 +114,11 @@ def make_streetmap():
                      f'<polyline class="vis" points="{pstr(l)}" fill="none" stroke="{col}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
                      f'<polyline points="{pstr(l)}" fill="none" stroke="transparent" stroke-width="14"/>')
         o.append('</g>')
+    o.append(f'<g class="sroute" pointer-events="none" fill="none" stroke="{ROUTE}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9">')
+    for k, l in route.items():
+        dash = ' stroke-dasharray="0.1 4" stroke-width="2.4"' if k.startswith('walk') else ''
+        o.append(f'<polyline points="{pstr(l)}"{dash}/>')
+    o.append('</g>')
     # densified points of every coloured street, so labels can avoid sitting on them
     road_pts = []
     for i, ls in lines.items():
@@ -145,7 +156,7 @@ def make_streetmap():
     obstacles.append(rect(cpx, cpy - 4, f_w.getlength('CONNAUGHT PLACE') * 1.15 + 6, 15, 0))
     LEG = [(0, 'Ancient'), (12, 'Rajput'), (14, 'Delhi Sultanate (14th c.)'), (15, 'Delhi Sultanate (15th c.)'), (16, 'Sur and Mughal (16th c.)'),
            (17, 'Mughal (17th c.)'), (18, 'Late Mughal (18th c.)'), ('eu', 'British and European'), (None, 'Jai Singh of Amber (I or II?)'), ('other', 'Other renaming since 2014')]
-    lw, lh = 236, 34 + 15 * len(LEG) + 30
+    lw, lh = 236, 34 + 15 * len(LEG) + 45
     lx, ly = X0 + 8, Y0 + H - lh - 8
     obstacles.append([(lx, ly), (lx + lw, ly), (lx + lw, ly + lh), (lx, ly + lh)])
     leg = [f'<g class="slegend"><rect x="{lx}" y="{ly}" width="{lw}" height="{lh}" rx="3" fill="{PAPER}" stroke="{RULE}" stroke-width=".8" opacity=".97"/>',
@@ -156,6 +167,9 @@ def make_streetmap():
                    f'<text x="{lx+42}" y="{yy}" font-size="10" fill="{INK}">{name}</text>')
     yy = ly + 34 + 15 * len(LEG) + 4
     leg.append(f'<line x1="{lx+10}" y1="{yy-3.5}" x2="{lx+34}" y2="{yy-3.5}" stroke="#b9ab8e" stroke-width="1.6"/><text x="{lx+42}" y="{yy}" font-size="10" fill="{SEPIA}">other major roads</text>')
+    yy += 15
+    leg.append(f'<line x1="{lx+10}" y1="{yy-3.5}" x2="{lx+34}" y2="{yy-3.5}" stroke="{ROUTE}" stroke-width="10" opacity=".3" stroke-linecap="round"/>'
+               f'<line x1="{lx+10}" y1="{yy-3.5}" x2="{lx+34}" y2="{yy-3.5}" stroke="{ROUTE}" stroke-width="1.6"/><text x="{lx+42}" y="{yy}" font-size="10" fill="{INK}">the suggested route (main map)</text>')
     leg.append(f'<text x="{lx+10}" y="{yy+17}" font-size="9.5" font-style="italic" fill="{SEPIA}">Labels: today’s name, older names in brackets</text></g>')
 
     # monument labels: try right, left, below

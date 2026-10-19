@@ -31,7 +31,9 @@ def cutaway_svg(kind, col):
         g += wall(30, 170, 132) + pier(58, 96, 36) + pier(132, 96, 36)
         g += outer('M62,96 C50,60 78,30 100,18 C122,30 150,60 138,96') + inner('M68,132 A32,28 0 0 1 132,132') + f'<line x1="30" y1="132" x2="58" y2="132" stroke="{INK}" stroke-width="1.4"/><line x1="142" y1="132" x2="170" y2="132" stroke="{INK}" stroke-width="1.4"/>'
         g += f'<line x1="100" y1="18" x2="100" y2="6" stroke="{INK}" stroke-width="1.5"/>'
+        g += f'<rect x="59.5" y="101" width="7" height="6" fill="{PAPER}" stroke="{INK}" stroke-width=".9"/>' + f'<path d="M133.5,132 V123 Q137,118 140.5,123 V132 Z" fill="{PAPER}" stroke="{INK}" stroke-width=".9"/>'   # documented openings (AKTC; Lowry 1987)
         g += lab(146, 46, 'tall outer shell') + lab(100, 78, 'large gap', 'middle') + lab(100, 127, 'inner dome', 'middle') + lab(100, 170, 'burial hall', 'middle')
+        g += lab(54, 99, 'small access', 'end') + lab(54, 108, 'opening', 'end') + lab(146, 116, 'doorway from') + lab(146, 125, 'roof terrace')
     elif kind == 'rb':
         g += gap('M55,118 A45,44 0 0 1 145,118 Z')
         g += wall(30, 170, 140) + pier(50, 118, 22) + pier(140, 118, 22)
@@ -65,7 +67,7 @@ DOMES = {
  'lodi': dict(title='Sikandar Lodi’s tomb, Lodi Gardens, Delhi', date='1517–18', col='#7d9a3c',
               line='Persian tradition, early in India. Often cited as India’s first double dome; some historians call it only a first step.'),
  'humayun': dict(title='Humayun’s Tomb, Delhi', date='c.1565–72', col='#c49a1e',
-              line='Persian–Timurid, mature. A tall outer shell for the skyline over a low inner dome that keeps the hall in proportion.'),
+              line='Persian–Timurid, mature. A tall outer shell for the skyline over a low inner dome that keeps the hall in proportion. Unlike Florence, no stair runs between the shells: conservators reached the cavity through a 0.8 × 0.6 m opening and scaffolding (AKTC).'),
  'rb': dict(title='Rashtrapati Bhavan, New Delhi', date='1912–29', col='#7a2e4f',
               line='European classical, Sanchi-shaped. A copper-clad outer dome over a lower inner dome above Durbar Hall; construction details undocumented.'),
  'florence': dict(title='Florence Cathedral (Santa Maria del Fiore)', date='1420–36', col='#6b5942',

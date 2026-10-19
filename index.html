@@ -196,7 +196,7 @@ footer p { margin: 0 }
     </div>
     <p class="lede">A double dome is two shells, one inside the other. Three buildings on this map have one, and each came from a different tradition. Florence's cathedral dome is older than all three but belongs to a separate line, so it's shown here for comparison only.</p>
     <div class="domes" id="domes"></div>
-    <p class="domes-note">Cutaways are schematic, not to scale: they show how the shells relate, not measured profiles. The construction of Rashtrapati Bhavan's inner dome isn't described in the sources checked. Sources: <a href="https://www.archnet.org/sites/1585" target="_blank" rel="noopener">Archnet (Sikandar Lodi's tomb)</a>, <a href="https://depts.washington.edu/silkroad/cities/india/delhi/humayun/humayun.html" target="_blank" rel="noopener">University of Washington Silk Road project (Humayun's Tomb)</a>, <a href="https://www.presidentofindia.gov.in/hi/node/1129" target="_blank" rel="noopener">President of India (central dome)</a>, <a href="https://rashtrapatibhavan.gov.in/rbtour/durbar-hall" target="_blank" rel="noopener">Rashtrapati Bhavan (Durbar Hall, “double dome”)</a>, <a href="https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh" target="_blank" rel="noopener">Dome of Soltaniyeh</a>.</p>
+    <p class="domes-note">Cutaways are schematic, not to scale: they show how the shells relate, not measured profiles. The construction of Rashtrapati Bhavan's inner dome isn't described in the sources checked. Sources: <a href="https://www.archnet.org/sites/1585" target="_blank" rel="noopener">Archnet (Sikandar Lodi's tomb)</a>, <a href="https://depts.washington.edu/silkroad/cities/india/delhi/humayun/humayun.html" target="_blank" rel="noopener">University of Washington Silk Road project (Humayun's Tomb)</a>, <a href="https://www.nizamuddinrenewal.org/conservation/humayun-tomb/data/dome.php" target="_blank" rel="noopener">Aga Khan Trust for Culture (Humayun's Tomb dome)</a>, <a href="https://www.presidentofindia.gov.in/hi/node/1129" target="_blank" rel="noopener">President of India (central dome)</a>, <a href="https://rashtrapatibhavan.gov.in/rbtour/durbar-hall" target="_blank" rel="noopener">Rashtrapati Bhavan (Durbar Hall, “double dome”)</a>, <a href="https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh" target="_blank" rel="noopener">Dome of Soltaniyeh</a>.</p>
   </section>
 
   <section class="streets-sec" aria-labelledby="streets-h">
@@ -2600,7 +2600,9 @@ function cutaway(kind, col) {
     g += outer('M62,96 C50,60 78,30 100,18 C122,30 150,60 138,96');
     g += inner('M68,132 A32,28 0 0 1 132,132') + `<line x1="30" y1="132" x2="58" y2="132" stroke="${INK}" stroke-width="1.4"/><line x1="142" y1="132" x2="170" y2="132" stroke="${INK}" stroke-width="1.4"/>`;
     g += `<line x1="100" y1="18" x2="100" y2="6" stroke="${INK}" stroke-width="1.5"/>`;
+    g += `<rect x="59.5" y="101" width="7" height="6" fill="${PAPER}" stroke="${INK}" stroke-width=".9"/><path d="M133.5,132 V123 Q137,118 140.5,123 V132 Z" fill="${PAPER}" stroke="${INK}" stroke-width=".9"/>`;   // documented openings (AKTC; Lowry 1987)
     g += lab(150, 52, 'tall outer') + lab(100, 80, 'big gap', 'middle') + lab(100, 127, 'inner', 'middle') + lab(100, 182, 'burial hall', 'middle');
+    g += lab(55, 105, 'hatch', 'end') + lab(146, 126, 'roof door');
   } else if (kind === 'rb') {
     g += gap('M55,118 A45,44 0 0 1 145,118 Z');
     g += wall(30, 170, 140) + `<rect x="50" y="118" width="10" height="22" fill="url(#h-${kind})" stroke="${INK}"/><rect x="140" y="118" width="10" height="22" fill="url(#h-${kind})" stroke="${INK}"/>`;
@@ -2624,7 +2626,7 @@ const DOMES = [
     why: 'Inner and outer shells sit close together.' },
   { id: 'humayun', name: 'Humayun’s Tomb', when: '1565–72', line: 'Persian–Timurid, mature',
     text: 'The first fully developed Persian-style double dome in India. Its architect, Mirak Mirza Ghiyas, had worked in Herat and Bukhara.',
-    why: 'Tall outer shell for the skyline; low inner dome so the hall below stays in proportion.' },
+    why: 'Tall outer shell for the skyline; low inner dome so the hall below stays in proportion. Unlike Florence, no stair runs between the shells: conservators reached the cavity through a small 0.8 × 0.6 m opening in the neck, using scaffolding (AKTC).' },
   { id: 'rb', name: 'Rashtrapati Bhavan', when: '1912–29', line: 'European classical, Sanchi-shaped',
     text: 'The official description has a lower dome beneath the copper-clad main dome, which rises about 55 m above the forecourt. The outer form is said to draw on the Sanchi stupa.',
     why: 'A grand outer silhouette, and a separate ceiling for Durbar Hall.' },

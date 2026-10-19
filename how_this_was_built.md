@@ -100,6 +100,11 @@ Numbers follow the suggested route, starting at 0 (Rashtrapati Bhavan, the map's
 
 Nuances: there was no clean winner of the 1418 competition (his scheme was adopted in 1420 with Ghiberti as co-supervisor, and he took sole charge around 1423). The "Gothic and foreign buttresses" motive comes largely from Ross King's narrative. The ball's date is given as 1466, 1469 or 1471. A 1970s survey found no trace of the iron chains.
 
+**Stairs between the shells.**
+- **Florence:** visitors climb 463 steps between the shells, and the cutaway shows that climb.
+- **Humayun's Tomb:** no stair between the shells is documented. The Aga Khan Trust for Culture, which repaired the cavity in 2009–11, calls the inner dome "barely accessible". Its inner surface "was accessible only through a small opening of 0.8 x 0.6 metre in the neck of the dome", and the team had to put up scaffolding ([AKTC](https://www.nizamuddinrenewal.org/conservation/humayun-tomb/data/dome.php)).
+- **Humayun's Tomb, what is documented:** Glenn Lowry's measured roof plan and photograph (Muqarnas 4, 1987) show doorways from the roof terrace into the base of the drum, and small stairs in the portal blocks. The cutaway marks the opening and a roof-terrace doorway, and draws no stair.
+
 **The cutaways are schematic.** They show how the shells relate, not measured profiles.
 
 ## Photo credits (dome comparison images)

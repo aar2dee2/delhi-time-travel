@@ -5,7 +5,7 @@ Fifteen monuments founded over about nine centuries stand within about 13 km of 
 ## What's in the project
 
 - `delhi_deep_time_map.svg`: the static map, with the "how far you go, how far back you get" chart, the key and the suggested day.
-- `index.html`: the interactive version, with a time dial, the 1920s street-name layer and the double-dome thread. It is published with GitHub Pages at https://aar2dee2.github.io/delhi-time-travel/.
+- `index.html`: the interactive version, with a time dial, a close-up street map of Lutyens' Delhi and the double-dome thread. It is published with GitHub Pages at https://aar2dee2.github.io/delhi-time-travel/.
 - `time_travel_delhi.html`: the same page without the HTML document wrapper, as used for the Claude artifact.
 - `blog/`: images for the blog post (map only; the full poster at 2400 px and 4800 px), plus `blog/domes/` with photo + cutaway comparisons for each dome.
 - `work/`: the scripts and data that generate everything above. Run `build.py` for the static map, `export_data.py` for both versions of the interactive page, `blog_images.py` for the blog images, and `dome_compare.py` for the dome comparisons. The original dome photos aren't in the repo. To rebuild the comparisons, download the four files listed in `work/photo_credits.json` into `photos_dl/` as lodi.jpg, humayun.jpg, rb.jpg and florence.jpg.
@@ -61,13 +61,22 @@ Numbers follow the suggested route, starting at 0 (Rashtrapati Bhavan, the map's
 - **Documented (high confidence):** many 1920s New Delhi avenues were deliberately named after earlier rulers of India: Ashoka, Prithviraj, the Tughlaqs, Firuz Shah, the Lodis, Sher Shah, Humayun, Akbar, Shahjahan, Aurangzeb and Safdarjung. The rest were named after viceroys and other Europeans who ruled parts of India (Curzon, Hardinge, Irwin, Clive, Dupleix, Albuquerque and others). Narayani Gupta cites Percival Spear's 1943 book, in which Spear says he was asked to suggest names from Indian history. ([The Wire](https://cms.thewire.in/news/history-needs-informed-debate-not-the-erasure-of-aurangzeb-to-install-kalam))
 - **Interpretation (moderate confidence):** that the names presented the Raj as the latest heir to Delhi's empires. Swapna Liddle calls it a "rebranding" ([ThePrint](https://theprint.in/feature/around-town/british-gave-delhi-a-makeover-to-show-they-werent-all-bad-ended-up-with-lutyens-baker-ego-war/2277615/)), but no official statement of that motive has been found.
 - **Not supported:** zoning by period. Mughal, Sultanate and viceregal names are mixed together. Tughlak Road is about 11 km from Tughlaqabad as the crow flies. No road for Jahangir or the Khaljis has been found; this is inferred from present-day names, not from a 1920s list.
-- **Renamings verified:**
-  - Kingsway → Rajpath (after Independence, 1955) → Kartavya Path (2022)
-  - Aurangzeb Road → Dr APJ Abdul Kalam Road (2015)
-  - Race Course Road → Lok Kalyan Marg (2016)
-  - Dalhousie Road → Dara Shikoh Road (2017)
+- **Renamings since 2014, verified (all decided by the NDMC):**
+  - Aurangzeb Road → Dr APJ Abdul Kalam Road (28 Aug 2015)
+  - Race Course Road → Lok Kalyan Marg (21 Sep 2016)
+  - Dalhousie Road → Dara Shikoh Road (6 Feb 2017)
+  - Rajpath → Kartavya Path (7 Sep 2022). Kingsway had become Rajpath, and Queensway Janpath, by a Union Cabinet decision of 27 July 1955.
+  - Aurangzeb Lane → Dr APJ Abdul Kalam Lane (June 2023). OpenStreetMap still uses the old name, so the map labels it from this list.
+- **Not official renamings:** Teen Murti Chowk became Teen Murti Haifa Chowk in 2018, but it's a roundabout, not a road. In March 2025 two MPs put "Swami Vivekananda Marg" on their Tughlak Lane nameplates, but no NDMC decision followed. No NDMC road renamings in the area were found for 2024–26.
+- **Dates and namesakes with caveats:**
+  - **Willingdon Crescent:** Willingdon was Viceroy only from 1931, so the crescent was named in the 1930s, not the 1920s. It was reportedly renamed after Mother Teresa's death in 1997; the year isn't verified.
+  - **Race Course Road:** when it got that name isn't established. The Delhi Race Club has been at this site since 1926.
+  - **Tees January Marg:** the Nehru Archive record dates the Albuquerque Road renaming to 1955. Popular accounts say 1948.
+  - **Unsourced namesakes:** Queensway's namesake (usually taken to be Queen Mary), Man Singh Road (probably Man Singh I), Jai Singh Road (I or II) and York Road (probably Prince Albert, Duke of York) are not documented. Hastings Road → Krishna Menon Marg rests on general lists.
+- **Spelling variants, not renamings:** Tughlak Road (also spelled Tughlaq), Feroz Shah Road (also Firoz Shah or Ferozshah) and Lodhi Road (also Lodi). Clive Road is now Tyagraj Marg, the NDMC spelling; Thyagaraja Marg is also used.
 
-  The other old-to-new pairs for viceregal roads follow the Wikipedia and Delhi Walla lists. The namesakes of Queensway, York Road and King George's Avenue are thinly sourced.
+  The other old-to-new pairs for viceregal roads follow the Wikipedia and Delhi Walla lists.
+- **The close-up street map** shows every major road in grey, from OpenStreetMap. Roads named after rulers or colonial officials are coloured by the namesake's era. Labels give today's name, with older names in brackets. Where a road was renamed after 2014, the bracket gives the name it had until then and the year it changed. New Delhi's plan is not concentric circles: Lutyens laid it out as hexagons and triangles, with avenues radiating from roundabouts such as India Gate's hexagon and Connaught Place's rings.
 - **Not Lutyens-era:** Chandragupta Marg and Kautilya Marg (Chanakyapuri, 1950s). They are not on the map.
 
 **What's documented, what's interpretation, what doesn't hold up** (this summary used to sit on the interactive page):
@@ -121,6 +130,17 @@ The Lodi and Humayun comparison images combine CC BY-SA photos, so they are shar
 - **Survivorship bias.** This is a map of what power built in stone. The houses and bazaars of every century shown are almost all gone.
 - **The 19th century is missing.** The century of 1857 has no monument on the map. This is the most visible gap, and a candidate for a future layer.
 - **Drive times are free-flow.** They come from OpenStreetMap routing; expect 2–3× longer in Delhi traffic.
+
+## Street-names fact-check (Fable, 19 Oct 2026)
+
+**Confirmed:** every post-2014 renaming and its date, the 1955 Cabinet decision for Rajpath and Janpath, all the old-to-new pairs, the namesakes' dates, India Gate (foundation 1921, inaugurated 12 Feb 1931), and the double-dome claims. The Rashtrapati Bhavan Durbar Hall page itself mentions a "double dome".
+
+**Fixed:**
+- Aurangzeb Lane (2023) added.
+- Willingdon Crescent dated to the 1930s.
+- Race Course Road caveat added.
+- Spellings corrected (Tyagraj Marg, Tughlak Road, Feroz Shah Road).
+- Namesakes hedged where unsourced.
 
 ## Independent audit (Fable, 17 Oct 2026)
 

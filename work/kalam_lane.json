@@ -1,0 +1,64 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-19T09:46:11Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 80950066,
+  "bounds": {
+    "minlat": 28.5958300,
+    "minlon": 77.2143261,
+    "maxlat": 28.5991308,
+    "maxlon": 77.2169318
+  },
+  "geometry": [
+    { "lat": 28.5991308, "lon": 77.2143261 },
+    { "lat": 28.5990606, "lon": 77.2143689 },
+    { "lat": 28.5981971, "lon": 77.2148968 },
+    { "lat": 28.5976759, "lon": 77.2151798 },
+    { "lat": 28.5972762, "lon": 77.2153968 },
+    { "lat": 28.5969225, "lon": 77.2156315 },
+    { "lat": 28.5967004, "lon": 77.2157789 },
+    { "lat": 28.5966271, "lon": 77.2158510 },
+    { "lat": 28.5965402, "lon": 77.2159432 },
+    { "lat": 28.5964281, "lon": 77.2160927 },
+    { "lat": 28.5958856, "lon": 77.2168560 },
+    { "lat": 28.5958300, "lon": 77.2169318 }
+  ],
+  "tags": {
+    "highway": "residential",
+    "name": "Aurangzeb Lane",
+    "name:etymology:wikidata": "Q485547",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 1075051012,
+  "bounds": {
+    "minlat": 28.5947790,
+    "minlon": 77.2169318,
+    "maxlat": 28.5958300,
+    "maxlon": 77.2182936
+  },
+  "geometry": [
+    { "lat": 28.5958300, "lon": 77.2169318 },
+    { "lat": 28.5956897, "lon": 77.2171254 },
+    { "lat": 28.5953175, "lon": 77.2176034 },
+    { "lat": 28.5951219, "lon": 77.2178541 },
+    { "lat": 28.5947790, "lon": 77.2182936 }
+  ],
+  "tags": {
+    "highway": "residential",
+    "name": "Aurangzeb Lane",
+    "name:etymology:wikidata": "Q485547"
+  }
+}
+
+  ]
+}

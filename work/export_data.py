@@ -50,55 +50,18 @@ def pts(coords, tol=1.0):
     return out
 
 
-# ---------- Lutyens-era street names (research 17 Oct 2026) ----------
-# (OSM names, 1920s name, current name / rename, namesake, era key, linked site or None)
-EUROPE = '#4a5666'
-STREETS = [
- (['Ashoka Road'], 'Ashoka Road', None, 'Ashoka, Maurya emperor, r. c.268–232 BCE', 0, 'kotla'),
- (['Prithviraj Road'], 'Prithviraj Road', None, 'Prithviraj Chauhan, r. c.1178–92', 12, 'lalkot'),
- (['Tughlaq Road'], 'Tughlak Road', None, 'The Tughlaq dynasty, 1320–1413', 14, 'tughlaq'),
- (['Firoz Shah Road'], 'Feroz Shah Road', None, 'Firuz Shah Tughlaq, r. 1351–88', 14, 'kotla'),
- (['Lodhi Road'], 'Lodi Road', None, 'The Lodi dynasty, 1451–1526', 15, 'lodi'),
- (['Sher Shah Road'], 'Sher Shah Road', None, 'Sher Shah Suri, r. 1540–45', 16, 'purana'),
- (['Humayun Road'], 'Humayun Road', None, 'Humayun, Mughal emperor, r. 1530–40 and 1555–56', 16, 'humayun'),
- (['Akbar Road'], 'Akbar Road', None, 'Akbar, Mughal emperor, r. 1556–1605', 16, None),
- (['Man Singh Road'], 'Man Singh Road', None, 'Raja Man Singh I of Amber, Akbar’s general', 16, None),
- (['Shahjahan Road'], 'Shahjahan Road', None, 'Shah Jahan, Mughal emperor, r. 1628–58', 17, 'redfort'),
- (['Doctor A.P.J. Abdul Kalam Marg', 'Doctor Avul Pakir Jainulabdeen Abdul Kalam Marg'], 'Aurangzeb Road', 'Dr APJ Abdul Kalam Road since 2015', 'Aurangzeb, Mughal emperor, r. 1658–1707', 17, 'sisganj'),
- (['Safdarjung Road'], 'Safdarjung Road', None, 'Safdarjung, Mughal wazir, d. 1754', 18, 'safdar'),
- (['Najaf Khan Road'], 'Najaf Khan Road', None, 'Mirza Najaf Khan, Mughal commander, d. 1782', 18, None),
- (['Jai Singh Road'], 'Jai Singh Road', None, 'Jai Singh of Amber (sources differ on whether I or II)', None, None),
- (['Kartavya Path'], 'Kingsway', 'Rajpath after Independence (1955), Kartavya Path 2022', 'King George V', 'eu', 'rb'),
- (['Janpath'], 'Queensway', 'Janpath after Independence (1955)', 'the Queen (usually taken to be Queen Mary)', 'eu', None),
- (['Kasturba Gandhi Marg'], 'Curzon Road', 'Kasturba Gandhi Marg', 'Lord Curzon, Viceroy 1899–1905', 'eu', None),
- (['Tilak Marg'], 'Hardinge Avenue', 'Tilak Marg', 'Lord Hardinge, Viceroy 1910–16', 'eu', None),
- (['Baba Kharak Singh Marg'], 'Irwin Road', 'Baba Kharak Singh Marg', 'Lord Irwin, Viceroy 1926–31', 'eu', None),
- (['Mandir Marg'], 'Reading Road', 'Mandir Marg', 'Lord Reading, Viceroy 1921–26', 'eu', None),
- (['Copernicus Marg'], 'Lytton Road', 'Copernicus Marg', 'Lord Lytton, Viceroy 1876–80', 'eu', None),
- (['Dr. Zakir Hussain Marg', 'Doctor Zakir Hussain Marg'], 'Wellesley Road', 'Dr Zakir Hussain Marg', 'Lord Wellesley, Governor-General 1798–1805', 'eu', None),
- (['Krishna Menon Marg'], 'Hastings Road', 'Krishna Menon Marg', 'Warren Hastings, Governor-General 1773–85', 'eu', None),
- (['Subramaniyam Bharti Marg'], 'Cornwallis Road', 'Subramania Bharti Marg', 'Lord Cornwallis, Governor-General 1786–93', 'eu', None),
- (['Dara Shikoh Road'], 'Dalhousie Road', 'Dara Shikoh Road since 2017', 'Lord Dalhousie, Governor-General 1848–56', 'eu', None),
- (['Tyagaraj Marg'], 'Clive Road', 'Thyagaraja Marg', 'Robert Clive', 'eu', None),
- (['Kumaraswami Kamaraj Marg'], 'Dupleix Road', 'Kamaraj Marg', 'Joseph-François Dupleix, French governor', 'eu', None),
- (['Tees January Road'], 'Albuquerque Road', 'Tees January Marg', 'Afonso de Albuquerque, Portuguese governor', 'eu', None),
- (['Sardar Patel Marg'], 'Kitchener Road', 'Sardar Patel Marg', 'Lord Kitchener, Commander-in-Chief', 'eu', None),
- (['Mother Teresa Crescent'], 'Willingdon Crescent', 'Mother Teresa Crescent', 'Lord Willingdon, Viceroy 1931–36', 'eu', None),
- (['Motilal Nehru Marg'], 'York Road', 'Motilal Nehru Marg', 'the Duke of York (sources thin)', 'eu', None),
- (['Rajaji Marg'], 'King George’s Avenue', 'Rajaji Marg', 'King George (V or VI; sources differ)', 'eu', None),
- (['Maulana Azad Road'], 'King Edward Road', 'Maulana Azad Road', 'King Edward VII', 'eu', None),
-]
-ERA_NAME = {0: 'Ancient', 12: 'Rajput', 14: 'Delhi Sultanate', 15: 'Delhi Sultanate', 16: 'Sur & Mughal', 17: 'Mughal', 18: 'Late Mughal', None: 'Uncertain', 'eu': 'British & European'}
-roads = json.load(open('lutyens_roads.json'))['elements']
+from streets_data import EUROPE, STREETS, ERA_NAME
+import streets_data as SD
+from streetmap import make_streetmap
+# one entry per catalogue row, in catalogue order, so indices match data-i in the close-up map
 streets = []
 for osm, old, now, who, era, link in STREETS:
-    ways = [e for e in roads if e['tags'].get('name') in osm]
-    lines = [pts([[g['lon'], g['lat']] for g in w['geometry']], 1.0) for w in ways]
-    lines = [l for l in lines if len(l) > 1]
-    if not lines:
-        print('no geometry for', old, file=sys.stderr); continue
-    col = EUROPE if era == 'eu' else ('#8a7a62' if era is None else B.CENT[era][0])
-    streets.append(dict(old=old, now=now, who=who, era=ERA_NAME[era], color=col, link=link, lines=lines))
+    cur, line2 = SD.names(old)
+    streets.append(dict(old=old, cur=cur, line2=line2, history=SD.history(old), who=who,
+                        era=ERA_NAME[era], color=SD.colour(era), link=link))
+streetmap_svg, label_report = make_streetmap()
+missing = [k for k, v in label_report.items() if v != 'placed']
+if missing: print('street labels without room:', missing, file=sys.stderr)
 
 sites = []
 for n, sid, name, built, yr, who, cent in B.SITES:
@@ -117,7 +80,7 @@ data = dict(sites=sites, routes=routes, river=river, streets=streets,
             frame=dict(x0=B.MX0, y0=B.MY0, x1=B.MX1, y1=B.MY1, cx=round(B.CX, 1), cy=round(B.CY, 1), k=B.K),
             ancient=B.CENT[0][0])
 tpl = open('interactive_template.html').read()
-page = tpl.replace('/*__DATA__*/null', json.dumps(data, ensure_ascii=False, separators=(',', ':')))
+page = tpl.replace('/*__DATA__*/null', json.dumps(data, ensure_ascii=False, separators=(',', ':'))).replace('%%STREETMAP%%', streetmap_svg)
 open(sys.argv[1], 'w').write(page)    # artifact version: the host adds the document skeleton
 print('wrote', sys.argv[1], len(json.dumps(data)) // 1024, 'KB data')
 # Standalone version for GitHub Pages: same page wrapped in a full HTML document.

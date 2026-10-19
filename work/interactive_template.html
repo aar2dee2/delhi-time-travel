@@ -74,17 +74,18 @@ footer p { margin: 0 }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
 .tip { position: fixed; z-index: 5; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--paper); font-size: 13px; line-height: 1.35; padding: 6px 9px; border-radius: 2px }
 .tip b { display: block; font-size: 14px }
-.street { cursor: pointer }
-.street .vis { stroke-width: 2.6; opacity: .7; transition: stroke-width .15s, opacity .2s }
-.street .case { opacity: 0 }
-.street.hot .vis { stroke-width: 4.5; opacity: 1 }
-/* street mode: everything else steps back so the streets read clearly */
-#map.streets-on [data-layer="drive"], #map.streets-on [data-layer="walk"] { opacity: .25 }
-#map.streets-on .site:not(.sel) { opacity: .45 }
-/* one street picked: the others fade, the picked one gets a paper casing and a name tag */
-#map.street-picked .street:not(.picked) .vis { opacity: .12 }
-.street.picked .vis { stroke-width: 6; opacity: 1 }
-.street.picked .case { opacity: 1 }
+.smapbox { border: 1.4px solid var(--rule); outline: .6px solid var(--rule); outline-offset: 3px; background: var(--paper-2); margin: 4px 0 22px; max-width: 900px }
+.smapbox svg { display: block; width: 100%; height: auto }
+.lstreet, .slabel { cursor: pointer }
+.lstreet .case { opacity: 0 }
+.lstreet .vis, .slabel, .sleader { transition: opacity .2s, stroke-width .15s }
+.lstreet.hot .vis { stroke-width: 6 }
+.lstreet.hot .case, .lstreet.picked .case { opacity: 1 }
+.lstreet.picked .vis { stroke-width: 6.5 }
+/* one street picked: everything else in the close-up steps back */
+#smap.picked .lstreet:not(.picked) .vis { opacity: .15 }
+#smap.picked .slabel:not(.picked), #smap.picked .sleader:not(.picked) { opacity: .2 }
+#smap.picked .lmon { opacity: .5 }
 .era li.picked { background: var(--paper-3) }
 .domes-sec { margin-top: 36px }
 .domes-sec .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap }
@@ -102,7 +103,6 @@ footer p { margin: 0 }
 .dome .why { color: var(--sepia); font-style: italic }
 .domes-note { margin-top: 12px; font-size: 13px; color: var(--sepia); max-width: 90ch }
 #map.thread .site:not(.in-thread) { opacity: .22 }
-#map.thread [data-layer="streets"] { opacity: .3 }
 .streets-sec { margin-top: 36px }
 .streets-sec h3 { font-family: var(--display); font-weight: 400; letter-spacing: .1em; font-size: 20px; margin: 0 }
 .streets-sec .lede { max-width: 72ch; margin: 6px 0 14px }
@@ -112,6 +112,7 @@ footer p { margin: 0 }
 .era ul { list-style: none; margin: 0; padding: 0 }
 .era li { padding: 3px 4px; cursor: pointer; border-radius: 2px; font-size: 14.5px }
 .era li:hover, .era li.hot { background: var(--paper-2) }
+.era li .old { font-style: italic; color: var(--sepia) }
 .era li small { display: block; color: var(--sepia); font-style: italic; font-size: 12.5px }
 /* map interaction */
 .site { cursor: pointer; transition: opacity .35s }
@@ -166,7 +167,6 @@ footer p { margin: 0 }
         <label><input type="checkbox" id="l-rings" checked> 3&nbsp;km rings</label>
         <label><input type="checkbox" id="l-river" checked> Yamuna</label>
         <label><input type="checkbox" id="l-labels" checked> Labels</label>
-        <label><input type="checkbox" id="l-streets"> 1920s street names</label>
         <label><input type="checkbox" id="l-thread"> Double-dome thread</label>
       </div>
     </aside>
@@ -192,12 +192,13 @@ footer p { margin: 0 }
     </div>
     <p class="lede">A double dome is two shells, one inside the other. Three buildings on this map have one, and each came from a different tradition. Florence's cathedral dome is older than all three but belongs to a separate line, so it's shown here for comparison only.</p>
     <div class="domes" id="domes"></div>
-    <p class="domes-note">Cutaways are schematic, not to scale: they show how the shells relate, not measured profiles. The construction of Rashtrapati Bhavan's inner dome isn't described in the sources checked. Sources: <a href="https://www.archnet.org/sites/1585" target="_blank" rel="noopener">Archnet (Sikandar Lodi's tomb)</a>, <a href="https://depts.washington.edu/silkroad/cities/india/delhi/humayun/humayun.html" target="_blank" rel="noopener">University of Washington Silk Road project (Humayun's Tomb)</a>, <a href="https://www.presidentofindia.gov.in/hi/node/1129" target="_blank" rel="noopener">President of India (central dome)</a>, <a href="https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh" target="_blank" rel="noopener">Dome of Soltaniyeh</a>.</p>
+    <p class="domes-note">Cutaways are schematic, not to scale: they show how the shells relate, not measured profiles. The construction of Rashtrapati Bhavan's inner dome isn't described in the sources checked. Sources: <a href="https://www.archnet.org/sites/1585" target="_blank" rel="noopener">Archnet (Sikandar Lodi's tomb)</a>, <a href="https://depts.washington.edu/silkroad/cities/india/delhi/humayun/humayun.html" target="_blank" rel="noopener">University of Washington Silk Road project (Humayun's Tomb)</a>, <a href="https://www.presidentofindia.gov.in/hi/node/1129" target="_blank" rel="noopener">President of India (central dome)</a>, <a href="https://rashtrapatibhavan.gov.in/rbtour/durbar-hall" target="_blank" rel="noopener">Rashtrapati Bhavan (Durbar Hall, “double dome”)</a>, <a href="https://en.wikipedia.org/wiki/Dome_of_Soltaniyeh" target="_blank" rel="noopener">Dome of Soltaniyeh</a>.</p>
   </section>
 
   <section class="streets-sec" aria-labelledby="streets-h">
     <h3 id="streets-h">The streets are a timeline too</h3>
-    <p class="lede">When New Delhi was laid out in the 1920s, many of its avenues were named after earlier rulers of India, from Ashoka to Aurangzeb, and the rest after viceroys and other Europeans who ruled parts of India. According to the historian Narayani Gupta, Percival Spear later wrote that he had been asked to suggest names from Indian history. Hover a name to find it on the map; where a ruler built something on the map, clicking takes you there.</p>
+    <p class="lede">When New Delhi was laid out in the 1920s and early 1930s, many of its avenues were named after earlier rulers of India, from Ashoka to Aurangzeb, and the rest after viceroys and other Europeans who ruled parts of India. According to the historian Narayani Gupta, Percival Spear later wrote that he had been asked to suggest names from Indian history. Many have been renamed since, some as recently as 2023. The map gives today’s name, with older names in brackets. Hover or tap a road, or a name in the list, to pick it out.</p>
+    <div class="smapbox" id="smap">%%STREETMAP%%</div>
     <div class="eras" id="eras"></div>
   </section>
 
@@ -245,16 +246,6 @@ function drawMap() {
   }
   h += `<text x="482" y="326" font-size="12" font-style="italic" letter-spacing="3" fill="#4f7479" transform="rotate(84 482 326)">YAMUNA</text></g>`;
   h += `<g fill="${SEPIA}" opacity=".5" font-style="italic" font-size="11" letter-spacing="1.5" text-anchor="middle" data-layer="labels"><text x="130" y="131">SHAHJAHANABAD</text><text x="95" y="300">NEW DELHI</text><text x="540" y="560">NIZAMUDDIN</text><text x="150" y="975">MEHRAULI</text></g>`;
-  h += `<g data-layer="streets" class="off">`;
-  D.streets.forEach((st, i) => {
-    h += `<g class="street" data-i="${i}">`;
-    for (const l of st.lines) {
-      const p = l.map(q => q.join(',')).join(' ');
-      h += `<polyline class="case" points="${p}" fill="none" stroke="${PAPER}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><polyline class="vis" points="${p}" fill="none" stroke="${st.color}" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${p}" fill="none" stroke="transparent" stroke-width="12"/>`;
-    }
-    h += `</g>`;
-  });
-  h += `</g>`;
   for (const k of ['drive1', 'drive2']) {
     const p = D.routes[k].pts.map(q => q.join(',')).join(' ');
     h += `<g data-layer="drive"><polyline points="${p}" fill="none" stroke="${PAPER}" stroke-width="5.5" stroke-linejoin="round" opacity=".9"/><polyline points="${p}" fill="none" stroke="${ROUTE}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/></g>`;
@@ -286,8 +277,6 @@ function drawMap() {
   for (const s of D.sites.filter(s => s.older)) {
     h += `<path class="older-mark" data-host="${s.id}" d="M${s.x + 7},${s.y - 5} l5,5 l-5,5 l-5,-5 Z" fill="${D.ancient}" stroke="${PAPER}" stroke-width="1" opacity=".35"/>`;
   }
-  h += `<g id="streetTop" pointer-events="none"></g>`;
-  h += `<g id="streetTag" hidden pointer-events="none" font-family="Spectral, Georgia, serif" filter="url(#plate)"><text class="t1" text-anchor="middle" font-size="13" font-weight="700" fill="${INK}"></text><text class="t2" text-anchor="middle" font-size="10.5" font-style="italic" fill="${SEPIA}"></text></g>`;
   // double-dome thread: links the three sites in date order
   {
     const ids = ['lodi', 'humayun', 'rb'], P = ids.map(id => { const s = byId[id]; return [s.x + s.off[0], s.y + s.off[1] - 22]; });
@@ -306,15 +295,6 @@ function drawMap() {
   h += `<g transform="translate(622,150)"><polygon points="0,-24 6,8 0,1 -6,8" fill="${INK}"/><text y="-29" font-size="13" font-weight="700" fill="${INK}" text-anchor="middle">N</text></g>`;
   h += `<g transform="translate(470,985)"><rect width="${K}" height="7" fill="${INK}"/><rect x="${K}" width="${K}" height="7" fill="${PAPER}" stroke="${INK}" stroke-width=".8"/><g font-size="10" fill="${INK}" text-anchor="middle"><text y="19">0</text><text x="${K}" y="19">1</text><text x="${2 * K}" y="19">2 km</text></g></g>`;
   svg.innerHTML = h;
-  svg.querySelectorAll('.street').forEach(g => {
-    const st = D.streets[+g.dataset.i];
-    g.addEventListener('mousemove', e => { if (picked === null) showTip(e, st); });
-    g.addEventListener('mouseleave', () => { hideTip(); hotStreet(null); });
-    g.addEventListener('mouseenter', () => hotStreet(+g.dataset.i));
-    g.addEventListener('click', e => { e.stopPropagation(); hideTip(); pickStreet(picked === +g.dataset.i ? null : +g.dataset.i); });
-  });
-  // clicking anywhere else on the map clears a picked street
-  svg.addEventListener('click', e => { if (picked !== null && !e.target.closest('.street')) pickStreet(null); });
   svg.querySelectorAll('.site').forEach(g => {
     g.addEventListener('click', () => select(g.dataset.id));
     g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(g.dataset.id); } });
@@ -473,66 +453,55 @@ document.getElementById('play').addEventListener('click', () => {
 });
 document.getElementById('reset').addEventListener('click', () => { if (anim) { cancelAnimationFrame(anim); anim = null; document.getElementById('play').textContent = 'Travel back'; } setBack(0); setTime(); });
 
-/* ---------------- streets ---------------- */
+/* ---------------- streets (close-up map) ---------------- */
 const tip = document.getElementById('tip');
+const smap = document.getElementById('smap');
 function showTip(e, st) {
-  tip.innerHTML = `<b>${esc(st.old)}</b>${esc(st.who)}${st.now ? `<br><i>Now: ${esc(st.now)}</i>` : ''}`;
+  tip.innerHTML = `<b>${esc(st.cur)}</b>${st.line2 ? `<i>${esc(st.line2)}</i><br>` : ''}Named after ${esc(st.who)}<br><i>${esc(st.history)}</i>`;
   tip.hidden = false;
   const x = Math.min(e.clientX + 14, innerWidth - 270), y = e.clientY + 16;
   tip.style.left = x + 'px'; tip.style.top = y + 'px';
 }
 function hideTip() { tip.hidden = true; }
+const byI = sel => [...smap.querySelectorAll(sel)];
 function hotStreet(i) {
-  document.querySelectorAll('.street').forEach(g => g.classList.toggle('hot', +g.dataset.i === i));
+  byI('.lstreet').forEach(g => g.classList.toggle('hot', +g.dataset.i === i));
   document.querySelectorAll('.era li').forEach(li => li.classList.toggle('hot', +li.dataset.i === i));
-}
-function setStreets(on) {
-  document.getElementById('l-streets').checked = on;
-  document.querySelectorAll('#map [data-layer="streets"]').forEach(el => el.classList.toggle('off', !on));
-  document.getElementById('map').classList.toggle('streets-on', on);
-  if (!on) pickStreet(null);
-}
-// Midpoint of a street's longest drawn piece, used to place its name tag.
-function streetMid(st) {
-  const l = st.lines.reduce((a, b) => (b.length > a.length ? b : a));
-  return l[Math.floor(l.length / 2)];
 }
 let picked = null;
 function pickStreet(i) {
   picked = i;
-  const map = document.getElementById('map'), tag = document.getElementById('streetTag');
-  map.classList.toggle('street-picked', i !== null);
-  map.querySelectorAll('.street').forEach(g => g.classList.toggle('picked', +g.dataset.i === i));
+  smap.classList.toggle('picked', i !== null);
+  byI('.lstreet, .slabel, .sleader').forEach(el => el.classList.toggle('picked', +el.dataset.i === i));
   document.querySelectorAll('.era li').forEach(li => li.classList.toggle('picked', +li.dataset.i === i));
-  const topLayer = document.getElementById('streetTop');
-  if (i === null) { tag.hidden = true; topLayer.innerHTML = ''; return; }
-  // redraw the picked street above the monuments and labels so nothing hides it
-  topLayer.innerHTML = D.streets[i].lines.map(l => { const p = l.map(q => q.join(',')).join(' ');
-    return `<polyline points="${p}" fill="none" stroke="${PAPER}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${p}" fill="none" stroke="${D.streets[i].color}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`; }).join('');
-  // tag sits just above the street's highest point, centred on its middle, kept inside the frame
-  const st = D.streets[i], [mx] = streetMid(st), top = Math.min(...st.lines.flat().map(q => q[1]));
-  const x = Math.max(F.x0 + 110, Math.min(F.x1 - 110, mx)), y = top - 10 < F.y0 + 34 ? Math.max(...st.lines.flat().map(q => q[1])) + 30 : top - 10;
-  const [t1, t2] = tag.querySelectorAll('text');
-  t1.setAttribute('x', x); t1.setAttribute('y', y - 13); t1.textContent = st.old;
-  t2.setAttribute('x', x); t2.setAttribute('y', y); t2.textContent = st.now ? `now ${st.now}` : st.who;
-  tag.hidden = false;
-  if (st.link) select(st.link);
+  // bring the picked road to the front so crossings don't hide it
+  const g = smap.querySelector(`.lstreet[data-i="${i}"]`); if (g) g.parentNode.appendChild(g);
+}
+function wireStreetMap() {
+  byI('.lstreet, .slabel').forEach(el => {
+    const i = +el.dataset.i, st = D.streets[i];
+    el.addEventListener('mousemove', e => showTip(e, st));
+    el.addEventListener('mouseenter', () => hotStreet(i));
+    el.addEventListener('mouseleave', () => { hideTip(); hotStreet(null); });
+    el.addEventListener('click', e => { e.stopPropagation(); hideTip(); pickStreet(picked === i ? null : i); });
+  });
+  smap.addEventListener('click', () => { if (picked !== null) pickStreet(null); });
 }
 function drawStreetList() {
-  const order = ['Ancient', 'Rajput', 'Delhi Sultanate', 'Sur & Mughal', 'Mughal', 'Late Mughal', 'Uncertain', 'British & European'];
+  const order = ['Ancient', 'Rajput', 'Delhi Sultanate', 'Sur & Mughal', 'Mughal', 'Late Mughal', 'Uncertain', 'British & European', 'Other renaming since 2014'];
   const box = document.getElementById('eras');
   box.innerHTML = order.map(era => {
     const items = D.streets.map((s, i) => [s, i]).filter(([s]) => s.era === era);
     if (!items.length) return '';
-    return `<div class="era"><h4><i style="background:${items[0][0].color}"></i>${era}</h4><ul>${items.map(([s, i]) =>
-      `<li tabindex="0" data-i="${i}">${esc(s.old)}<small>${esc(s.who)}${s.now ? ' · now ' + esc(s.now) : ''}</small></li>`).join('')}</ul></div>`;
+    return `<div class="era"><h4><i style="background:${items[0][0].color}"></i>${era === 'Uncertain' ? 'Jai Singh of Amber (I or II?)' : era}</h4><ul>${items.map(([s, i]) =>
+      `<li tabindex="0" data-i="${i}">${esc(s.cur)}${s.line2 ? ` <span class="old">${esc(s.line2)}</span>` : ''}<small>${esc(s.who)} · ${esc(s.history)}</small></li>`).join('')}</ul></div>`;
   }).join('');
   box.querySelectorAll('li').forEach(li => {
-    const i = +li.dataset.i, st = D.streets[i];
-    li.addEventListener('mouseenter', () => { setStreets(true); hotStreet(i); });
+    const i = +li.dataset.i;
+    li.addEventListener('mouseenter', () => hotStreet(i));
     li.addEventListener('mouseleave', () => hotStreet(null));
-    li.addEventListener('focus', () => { setStreets(true); hotStreet(i); });
-    const go = () => { setStreets(true); pickStreet(i); document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    li.addEventListener('focus', () => hotStreet(i));
+    const go = () => { pickStreet(i); smap.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
     li.addEventListener('click', go);
     li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
   });
@@ -626,12 +595,11 @@ const _select = select;
 select = (id, scroll) => { _select(id, scroll); document.querySelectorAll('.dome[data-id]').forEach(el => el.classList.toggle('sel', el.dataset.id === id)); };
 
 /* ---------------- layers ---------------- */
-document.getElementById('l-streets').addEventListener('change', e => setStreets(e.target.checked));
 for (const k of ['drive', 'walk', 'rings', 'river', 'labels']) {
   document.getElementById('l-' + k).addEventListener('change', e => {
     document.querySelectorAll(`#map [data-layer="${k}"]`).forEach(el => el.classList.toggle('off', !e.target.checked));
   });
 }
 
-drawMap(); drawChart(); drawRoute(); drawStreetList(); drawDomes(); select('rb'); setTime();
+drawMap(); drawChart(); drawRoute(); drawStreetList(); wireStreetMap(); drawDomes(); select('rb'); setTime();
 </script>
